@@ -120,7 +120,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ * COMPLETAR LISTO)
+ * Funcion que imprime por pantalla el inicio del juego Wordix 
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -133,11 +134,16 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ * revisar
+ * COMPLETAR LISTO)
+ * Funcion que retorna si la palabra ingresada como parametro
+ * es de tipo texto y tiene cinco letras o falso caso contrario
+ * @return BOOLEAN
  */
 function esPalabra($cadena)
 {
-    //int $cantCaracteres, $i, boolean $esLetra
+    //int $cantCaracteres, $i,
+    // boolean $esLetra
     $cantCaracteres = strlen($cadena);
     $esLetra = true;
     $i = 0;
@@ -149,7 +155,11 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ * COMPLETAR LISTO)
+ * Funcion que solicita al usuario que ingrese una palabra de 5 letras
+ * y determina si es verdadero que tenga 5 letras, caso contrario, debe reingresar una 
+ * palabra de 5 letras de forma alfabetica.
+ * @return STRING
  */
 function leerPalabra5Letras()
 {
@@ -274,20 +284,6 @@ function analizarPalabraIntento($palabraWordix, $estruturaIntentosWordix, $palab
     return $estruturaIntentosWordix;
 }
 
-/* Funcion menuWordix muestra el menu de opciones de juego
-* @return string
-*/
-
-function menuWordix(){
-    echo "**************\n";
-    echo "1. Cargar coleccion de palabras";
-    echo "2. Salir\n";
-    echo "**************\n";
-    echo "Ingrese una opcion \n";
-    $opcion = trim(fgets(STDIN));
-    return $opcion;
-}
-
 /**
  * Actualiza el estado de las letras del teclado. 
  * Teniendo en cuenta que una letra sólo puede pasar:
@@ -348,6 +344,7 @@ function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales nece
 {
 
     /* ****COMPLETAR***** cuerpo de la función*/
+
     return 0;
 }
 
@@ -374,8 +371,8 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         /*Mostrar los resultados del análisis: */
         imprimirIntentosWordix($arregloDeIntentosWordix);
         escribirTeclado($teclado);
-        /*Determinar si la plabra intento ganó e incrementar la cantidad de intentos */
-
+        
+        /*Determinar si la palabra intento ganó e incrementar la cantidad de intentos */
         $ganoElIntento = esIntentoGanado($arregloDeIntentosWordix[$indiceIntento]);
         $nroIntento++;
     } while ($nroIntento <= CANT_INTENTOS && !$ganoElIntento);
@@ -384,7 +381,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     if ($ganoElIntento) {
         $nroIntento--;
         $puntaje = obtenerPuntajeWordix();
-        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
+        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . ". Obtuvo $puntaje puntos!\n\n";
     } else {
         $nroIntento = 0; //reset intento
         $puntaje = 0;
