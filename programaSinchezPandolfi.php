@@ -7,9 +7,10 @@ include_once("wordix.php");
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
 
-/* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
-/* ****COMPLETAR***** */
-
+// Lian Ivan Sinchez. Legajo: [FAI-4202]. Carrera: TUDW.
+// Email: lian.sinchez@est.fi.uncoma.edu.ar - Github: LianIvanSinchez09
+// Pandolfi Jimenez Francisco/ Legajo: [FAI-4650]. Carrera: TUDW.
+// Email: francisco.pandolfi@est.fi.uncoma.edu.ar - Github: FranciscoPJ
 
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
