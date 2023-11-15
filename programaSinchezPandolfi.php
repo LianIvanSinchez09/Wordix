@@ -40,15 +40,6 @@ function cargarColeccionPalabras()
  */
 function cargarPartidas(){
     $coleccion = [
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
         ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0]
     ];
     return $coleccion;
