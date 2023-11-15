@@ -338,14 +338,32 @@ function esIntentoGanado($estructuraPalabraIntento)
 }
 
 /**
- * ****COMPLETAR***** documentación de la intefaz
+ * ESTE ES NUEVO FRAN. AGREGAR git
+ * Funcion que tiene un parametro de entrada de tipo Entero
+ * con un rango de numeros del 1 a 6 determina el puntaje de los
+ * intentos del juego wordix
+ * @param INT $intentos
+ * @return INT
  */
-function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales necesarios */
+function obtenerPuntajeWordix($intentos)
 {
-
-    /* ****COMPLETAR***** cuerpo de la función*/
-
-    return 0;
+    switch($intentos){
+        case 1: $puntaje = 6;
+        break;
+        case 2: $puntaje = 5;
+        break;
+        case 3: $puntaje = 4;
+        break;
+        case 4: $puntaje = 3;
+        break;
+        case 5: $puntaje = 2;
+        break;
+        case 6: $puntaje = 1;
+        break;
+        default: $puntaje = 0;
+        break;
+    }
+    return $puntaje;
 }
 
 /**
@@ -380,7 +398,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = obtenerPuntajeWordix();
+        $puntaje = obtenerPuntajeWordix($nroIntento);
         echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . ". Obtuvo $puntaje puntos!\n\n";
     } else {
         $nroIntento = 0; //reset intento
