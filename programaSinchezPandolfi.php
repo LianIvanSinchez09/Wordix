@@ -35,14 +35,21 @@ function cargarColeccionPalabras()
 
 /**
  * 3.2)
- * Funcion que almacena información de las partidas almenos 10 veces
- * @return ARRAY
+ * Funcion que almacena información de las partidas
  */
 function cargarPartidas(){
-    $coleccion = [
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0]
-    ];
-    return $coleccion;
+    $partida = [];
+    $partida[0] = [ "palabraWordix" => "QUESO", "jugador" =>  "LIAN", "intentos" => 2, "puntaje" =>  5];
+    $partida[1] = [ "palabraWordix" => "MUJER", "jugador" =>  "FRAN", "intentos" => 1, "puntaje" =>  6];
+    $partida[2] = [ "palabraWordix" => "GOTAS", "jugador" =>  "LAUTARO", "intentos" => 3, "puntaje" =>  4];
+    $partida[3] = [ "palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  3];
+    $partida[4] = [ "palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  2];
+    $partida[5] = [ "palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 6, "puntaje" =>  1];
+    $partida[6] = [ "palabraWordix" => "PISOS", "jugador" =>  "FABIO", "intentos" => 1, "puntaje" =>  6];
+    $partida[7] = [ "palabraWordix" => "MELON", "jugador" =>  "CLAUDIO", "intentos" => 3, "puntaje" =>  4];
+    $partida[8] = [ "palabraWordix" => "VERDE", "jugador" =>  "ESTEBAN", "intentos" => 2, "puntaje" =>  5];
+    $partida[9] = [ "palabraWordix" => "GATOS", "jugador" =>  "RODRIGO", "intentos" => 1, "puntaje" =>  6];
+    return $partida; 
 }
 
 /**
@@ -150,6 +157,8 @@ function numeroDePalabra($array){
 
 //Proceso:
 
+$palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
+$partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras();
 do {
     $opcion = seleccionarOpcion();
