@@ -79,8 +79,8 @@ function seleccionarOpcion(){
 
 
 
-//Una función agregarPalabra cuya entrada sea la colección de palabras y una palabra, y la función retorna
-//la colección modificada al agregarse la nueva palabra. (Estructura c de la sección EXPLICACIÓN 2)
+
+
 
 /**
  * Funcion agregarPalabra añade una palabra y la agrega al final del array
@@ -117,11 +117,16 @@ function ingreseUnNombre(){
  * Funcion que retorna un numero entero del indice del arreglo
  * @return INT
  */
-function numeroDePalabra($palabraCollection){
+function numeroDePalabra($col){
+    $col = [];
     echo "Ingrese un numero deseado: ";
     $index = trim(fgets(STDIN));
-    $numero = $palabraCollection[$index];
-    return $numero;
+
+    if ($index >= 0 && $index < count($col)) {
+        $numero = $col[$index];
+    } else {
+        echo "indice fuera de rango";
+    }
 }
 
 /* ****COMPLETAR***** */
@@ -147,7 +152,6 @@ function numeroDePalabra($palabraCollection){
 
 do {
     $opcion = seleccionarOpcion();
-    $palabraCollection = cargarColeccionPalabras();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1: $partida = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
