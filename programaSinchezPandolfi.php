@@ -88,8 +88,9 @@ function seleccionarOpcion(){
  * @param STRING 
  */
 
-function agregarPalabra($coleccionPalabras, $pal){
-    return array_push($coleccionPalabras, $pal);
+function agregarPalabra($col, $pal){
+    array_push($col, $pal);
+    return $col;
 }
 
 /** 
@@ -116,9 +117,10 @@ function ingreseUnNombre(){
  * Funcion que retorna un numero entero del indice del arreglo
  * @return INT
  */
-function numeroDePalabra(){
+function numeroDePalabra($palabraCollection){
     echo "Ingrese un numero deseado: ";
-    $numero = cargarColeccionPalabras()[trim(fgets(STDIN))];
+    $index = trim(fgets(STDIN));
+    $numero = $palabraCollection[$index];
     return $numero;
 }
 
@@ -148,7 +150,7 @@ do {
     $palabraCollection = cargarColeccionPalabras();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
-        case 1: $partida = jugarWordix(numeroDePalabra(), strtolower(ingreseUnNombre()));
+        case 1: $partida = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
             
             break;
         //Jugar al wordix con una palabra aleatoria
@@ -181,9 +183,7 @@ do {
         //Agregar una palabra de 5 letras a Wordix
         case 7: 
             $palabra = leerPalabra5Letras();
-            agregarPalabra($palabraCollection, $palabra);
-            $test = agregarPalabra($palabraCollection, $palabra);
-            print_r($test);
+            $palabraCollection = agregarPalabra($palabraCollection, $palabra);
             break;
         default; break;
     }
