@@ -127,6 +127,8 @@ function ingreseUnNombre(){
     return $nombre;
 }
 
+//TODO: Encontrar la manera de hacer los cambios de agregarPalabra() globales
+
 /**
  * Funcion que retorna un numero entero del indice del arreglo
  * @return INT
@@ -139,7 +141,7 @@ function numeroDePalabra($col){
     if ($index >= 0 && $index < count($col)) {
         $numero = $col[$index];
     } else {
-        echo "indice fuera de rango";
+        echo "indice fuera de rango\n";
     }
 }
 
