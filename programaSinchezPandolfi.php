@@ -34,15 +34,23 @@ function cargarColeccionPalabras()
 }
 /**
  * 3.2)
- * Funcion que almacena información de las partidas
+ * Funcion que almacena información de las partidas almenos 10 veces
+ * @return ARRAY
  */
 function cargarPartidas(){
-    $partida = [
-        "palabraWordix" => "",
-        "jugador" => "",
-        "intentos" => 0,
-        "puntaje" => 0
-];
+    $coleccion = [
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0]
+    ];
+    return $coleccion;
 }
 
 /**
@@ -123,8 +131,15 @@ do {
 
             break;
         //Mostrar resumen de Jugador
-        case 5: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
-
+        case 5: 
+            cargarPartidas();
+            for($i = 0; $i < count( cargarPartidas()); $i++){
+                echo "coleccionPartidas[" . $i . "] = ";
+                foreach( cargarPartidas()[$i] as $indice => $dato){
+                    echo $indice . ": " . $dato . " ";
+                }  
+                echo "\n";
+            }        
             break;
         //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
