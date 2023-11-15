@@ -33,10 +33,6 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
-// 
-$palabraCollection = cargarColeccionPalabras();
-
-
 /**
  * 3.2)
  * Funcion que almacena información de las partidas almenos 10 veces
@@ -94,8 +90,6 @@ function seleccionarOpcion(){
     return $opcion;
 }
 
-
-
 /**
  * Funcion agregarPalabra añade una palabra y la agrega al final del array
  * @param ARRAY palabraCollection
@@ -103,7 +97,7 @@ function seleccionarOpcion(){
  */
 
 function agregarPalabra($col, $pal){
-    array_push($col, $pal);
+    $col[count($col)] = $pal;
     return $col;
 }
 
@@ -116,7 +110,6 @@ function numeroAleatorio($palabraCollection){
     //array_rand
 }
 
-
 /**
  * Funcion que retorna el nombre ingresado por el usuario
  * @return STRING
@@ -127,22 +120,23 @@ function ingreseUnNombre(){
     return $nombre;
 }
 
-//TODO: Encontrar la manera de hacer los cambios de agregarPalabra() globales
-
 /**
  * Funcion que retorna un numero entero del indice del arreglo
  * @return INT
  */
-function numeroDePalabra($col){
-    $col = [];
-    echo "Ingrese un numero deseado: ";
+function numeroDePalabra($array){
+    //$col = [];
+    echo "Ingrese un numero de palabra para jugar: ";
     $index = trim(fgets(STDIN));
+    
+    //CONSULTA PARA LIAN: QUE REALIZA ESTA ALTERNATIVA? NO LA ENTIENDO
 
-    if ($index >= 0 && $index < count($col)) {
+    /*if ($index >= 0 && $index < count($col)) {
         $numero = $col[$index];
     } else {
         echo "indice fuera de rango\n";
-    }
+    }*/
+    return $array[$index];;
 }
 
 /* ****COMPLETAR***** */
@@ -165,16 +159,17 @@ function numeroDePalabra($col){
 
 //Proceso:
 
-
+$palabraCollection = cargarColeccionPalabras();
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
-        case 1: $partida = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
+        case 1: 
+            jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
             
             break;
         //Jugar al wordix con una palabra aleatoria
-        case 2: $partida = jugarWordix(numeroAleatorio($palabrasArray), strtolower(ingreseUnNombre()));        
+        case 2: $partida = jugarWordix(numeroAleatorio($palabraCollection), strtolower(ingreseUnNombre()));        
 
             break;
         //Mostrar una partida
@@ -204,12 +199,10 @@ do {
         case 7: 
             $palabra = leerPalabra5Letras();
             $palabraCollection = agregarPalabra($palabraCollection, $palabra);
+            print_r($palabraCollection);
             break;
         default; break;
     }
 } while ($opcion != 8);
 
-
-/*$partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));
-//print_r($partida);
-//imprimirResultado($partida);*/
+?>
