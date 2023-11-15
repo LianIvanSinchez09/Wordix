@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 La librería JugarWordix posee la definición de constantes y funciones necesarias
 para jugar al Wordix.
@@ -222,6 +224,7 @@ function escribirTeclado($teclado)
     }
     echo "\n";
 };
+
 
 
 /**

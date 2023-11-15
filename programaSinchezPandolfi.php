@@ -32,6 +32,8 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
+$palabraCollection = cargarColeccionPalabras();
+
 /**
  * 3.2)
  * Funcion que almacena información de las partidas almenos 10 veces
@@ -72,19 +74,45 @@ function seleccionarOpcion(){
     return $opcion;
 }
 
-function numeroAleatorio(){
-    $array = cargarColeccionPalabras();
-    return $array[random_int(0, 14)];
+
+
+//Una función agregarPalabra cuya entrada sea la colección de palabras y una palabra, y la función retorna
+//la colección modificada al agregarse la nueva palabra. (Estructura c de la sección EXPLICACIÓN 2)
+
+/**
+ * Funcion agregarPalabra añade una palabra y la agrega al final del array
+ * @param ARRAY palabraCollection
+ * @param STRING 
+ */
+
+function agregarPalabra($coleccionPalabras, $pal){
+    array_push($coleccionPalabras, $pal);
+}
+
+/** 
+ * Funcion que retorna un numero aleatorio
+ * @return ARRAY
+ */
+function numeroAleatorio($palabraCollection){
+    return $palabraCollection[random_int(0, 14)];
     //array_rand
 }
 
+
+/**
+ * Funcion que retorna el nombre ingresado por el usuario
+ * @return STRING
+ */
 function ingreseUnNombre(){
     echo "Ingrese su nombre: ";
     $nombre = trim(fgets(STDIN));
     return $nombre;
 }
 
-//funcion que retorna un numero entero del indice del arreglo
+/**
+ * Funcion que retorna un numero entero del indice del arreglo
+ * @return INT
+ */
 function numeroDePalabra(){
     echo "Ingrese un numero deseado: ";
     $numero = cargarColeccionPalabras()[trim(fgets(STDIN))];
@@ -111,6 +139,8 @@ function numeroDePalabra(){
 
 //Proceso:
 
+$palabrasArray = $palabraCollection;
+
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
@@ -119,7 +149,7 @@ do {
             
             break;
         //Jugar al wordix con una palabra aleatoria
-        case 2: $partida = jugarWordix(numeroAleatorio(), strtolower(ingreseUnNombre()));        
+        case 2: $partida = jugarWordix(numeroAleatorio($palabrasArray), strtolower(ingreseUnNombre()));        
 
             break;
         //Mostrar una partida
@@ -146,8 +176,9 @@ do {
 
             break;
         //Agregar una palabra de 5 letras a Wordix
-        case 7: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
-
+        case 7: 
+            $palabra = leerPalabra5Letras();
+            agregarPalabra($palabraCollection, $palabra);
             break;
         default; break;
     }
