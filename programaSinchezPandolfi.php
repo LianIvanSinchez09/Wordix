@@ -165,7 +165,8 @@ do {
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1: 
-            jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
+            $nuevaPos = count($partidasCollection);
+            $partidasCollection[$nuevaPos] = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
             
             break;
         //Jugar al wordix con una palabra aleatoria
