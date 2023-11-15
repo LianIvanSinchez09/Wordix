@@ -59,6 +59,23 @@ function cargarPartidas(){
 }
 
 /**
+ * Funcion que solicita al usuario un número entre un rango de valores
+ * Si el número ingresado por el usuario no es válido, 
+ * la función se encarga de volver a pedirlo. 
+ * La función retorna un número válido.
+ * @return INT
+ */
+function numeroRangoValores(){
+    echo "Ingrese un numero entero entre 1 y 8: ";
+    $rango = trim(fgets(STDIN));
+    while(!($rango >= 1 && $rango <= 8)){
+        echo "Numero Invalido.\nIngrese un numero entero entre 1 y 8: ";
+        $rango = trim(fgets(STDIN));
+    }
+    return $rango;
+}
+
+/**
  * funcion que retorna un Menu de Partidas
  * @return INT
  */
@@ -77,11 +94,8 @@ function seleccionarOpcion(){
     return $opcion;
 }
 
-
-
 //Una función agregarPalabra cuya entrada sea la colección de palabras y una palabra, y la función retorna
 //la colección modificada al agregarse la nueva palabra. (Estructura c de la sección EXPLICACIÓN 2)
-
 /**
  * Funcion agregarPalabra añade una palabra y la agrega al final del array
  * @param ARRAY palabraCollection
