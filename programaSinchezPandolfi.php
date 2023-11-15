@@ -60,10 +60,9 @@ function cargarPartidas(){
  * @return INT
  */
 function numeroRangoValores(){
-    echo "Ingrese un numero entero entre 1 y 8: ";
     $rango = trim(fgets(STDIN));
     while(!($rango >= 1 && $rango <= 8)){
-        echo "Numero Invalido.\nIngrese un numero entero entre 1 y 8: ";
+        echo "Opcion Invalido.\nIngrese un numero del menu: ";
         $rango = trim(fgets(STDIN));
     }
     return $rango;
@@ -84,7 +83,7 @@ function seleccionarOpcion(){
     echo "7: Agregar una palabra de 5 letras a Wordix\n";
     echo "8: Salir\n";
     echo "Ingrese una opcion:\n";
-    $opcion = trim(fgets(STDIN));
+    $opcion = numeroRangoValores();
     return $opcion;
 }
 
