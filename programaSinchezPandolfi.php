@@ -129,7 +129,7 @@ function numeroDePalabra($array){
     echo "Ingrese un numero de palabra para jugar: ";
     $index = trim(fgets(STDIN));
     
-    //CONSULTA PARA LIAN: QUE REALIZA ESTA ALTERNATIVA? NO LA ENTIENDO
+    //CONSULTA: QUE REALIZA ESTA ALTERNATIVA?
 
     /*if ($index >= 0 && $index < count($col)) {
         $numero = $col[$index];
