@@ -32,7 +32,10 @@ function cargarColeccionPalabras()
 
     return ($coleccionPalabras);
 }
+
+// 
 $palabraCollection = cargarColeccionPalabras();
+
 
 /**
  * 3.2)
@@ -86,7 +89,7 @@ function seleccionarOpcion(){
  */
 
 function agregarPalabra($coleccionPalabras, $pal){
-    array_push($coleccionPalabras, $pal);
+    return array_push($coleccionPalabras, $pal);
 }
 
 /** 
@@ -139,10 +142,10 @@ function numeroDePalabra(){
 
 //Proceso:
 
-$palabrasArray = $palabraCollection;
 
 do {
     $opcion = seleccionarOpcion();
+    $palabraCollection = cargarColeccionPalabras();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1: $partida = jugarWordix(numeroDePalabra(), strtolower(ingreseUnNombre()));
@@ -179,6 +182,8 @@ do {
         case 7: 
             $palabra = leerPalabra5Letras();
             agregarPalabra($palabraCollection, $palabra);
+            $test = agregarPalabra($palabraCollection, $palabra);
+            print_r($test);
             break;
         default; break;
     }
