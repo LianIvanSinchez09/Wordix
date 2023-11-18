@@ -33,29 +33,23 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
-// array de palabras a adivinar por el user
-$palabraCollection = cargarColeccionPalabras();
-
-
 /**
  * 3.2)
- * Funcion que almacena información de las partidas almenos 10 veces
- * @return ARRAY
+ * Funcion que almacena información de las partidas
  */
 function cargarPartidas(){
-    $coleccion = [
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => " ", "jugador" => " ", "intentos" => 0, "puntaje" => 0]
-    ];
-    return $coleccion;
+    $partida = [];
+    $partida[0] = [ "palabraWordix" => "QUESO", "jugador" =>  "LIAN", "intentos" => 2, "puntaje" =>  5];
+    $partida[1] = [ "palabraWordix" => "MUJER", "jugador" =>  "FRAN", "intentos" => 1, "puntaje" =>  6];
+    $partida[2] = [ "palabraWordix" => "GOTAS", "jugador" =>  "LAUTARO", "intentos" => 3, "puntaje" =>  4];
+    $partida[3] = [ "palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  3];
+    $partida[4] = [ "palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  2];
+    $partida[5] = [ "palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 6, "puntaje" =>  1];
+    $partida[6] = [ "palabraWordix" => "PISOS", "jugador" =>  "FABIO", "intentos" => 1, "puntaje" =>  6];
+    $partida[7] = [ "palabraWordix" => "MELON", "jugador" =>  "CLAUDIO", "intentos" => 3, "puntaje" =>  4];
+    $partida[8] = [ "palabraWordix" => "VERDE", "jugador" =>  "ESTEBAN", "intentos" => 2, "puntaje" =>  5];
+    $partida[9] = [ "palabraWordix" => "GATOS", "jugador" =>  "RODRIGO", "intentos" => 1, "puntaje" =>  6];
+    return $partida; 
 }
 
 
@@ -67,10 +61,9 @@ function cargarPartidas(){
  * @return INT
  */
 function numeroRangoValores(){
-    echo "Ingrese un numero entero entre 1 y 8: ";
     $rango = trim(fgets(STDIN));
     while(!($rango >= 1 && $rango <= 8)){
-        echo "Numero Invalido.\nIngrese un numero entero entre 1 y 8: ";
+        echo "Opcion Invalido.\nIngrese un numero del menu: ";
         $rango = trim(fgets(STDIN));
     }
     return $rango;
@@ -91,11 +84,9 @@ function seleccionarOpcion(){
     echo "7: Agregar una palabra de 5 letras a Wordix\n";
     echo "8: Salir\n";
     echo "Ingrese una opcion:\n";
-    $opcion = trim(fgets(STDIN));
+    $opcion = numeroRangoValores();
     return $opcion;
 }
-
-
 
 /**
  * Funcion agregarPalabra añade una palabra y la agrega al final del array
@@ -104,7 +95,7 @@ function seleccionarOpcion(){
  */
 
 function agregarPalabra($col, $pal){
-    array_push($col, $pal);
+    $col[count($col)] = $pal;
     return $col;
 }
 
@@ -117,7 +108,6 @@ function numeroAleatorio($palabraCollection){
     //array_rand
 }
 
-
 /**
  * Funcion que retorna el nombre ingresado por el usuario
  * @return STRING
@@ -128,22 +118,23 @@ function ingreseUnNombre(){
     return $nombre;
 }
 
-//TODO: Encontrar la manera de hacer los cambios de agregarPalabra() globales
-
 /**
  * Funcion que retorna un numero entero del indice del arreglo
  * @return INT
  */
-function numeroDePalabra($col){
-    $col = [];
-    echo "Ingrese un numero deseado: ";
+function numeroDePalabra($array){
+    //$col = [];
+    echo "Ingrese un numero de palabra para jugar: ";
     $index = trim(fgets(STDIN));
+    
+    //CONSULTA: QUE REALIZA ESTA ALTERNATIVA?
 
-    if ($index >= 0 && $index < count($col)) {
+    /*if ($index >= 0 && $index < count($col)) {
         $numero = $col[$index];
     } else {
         echo "indice fuera de rango\n";
-    }
+    }*/
+    return $array[$index];;
 }
 
 /* ****COMPLETAR***** */
@@ -166,16 +157,20 @@ function numeroDePalabra($col){
 
 //Proceso:
 
-
+$palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
+$partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
+$palabraCollection = cargarColeccionPalabras();
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
-        case 1: $partida = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
+        case 1: 
+            $nuevaPos = count($partidasCollection);
+            $partidasCollection[$nuevaPos] = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
             
             break;
         //Jugar al wordix con una palabra aleatoria
-        case 2: $partida = jugarWordix(numeroAleatorio($palabrasArray), strtolower(ingreseUnNombre()));        
+        case 2: $partida = jugarWordix(numeroAleatorio($palabraCollection), strtolower(ingreseUnNombre()));        
 
             break;
         //Mostrar una partida
@@ -205,12 +200,10 @@ do {
         case 7: 
             $palabra = leerPalabra5Letras();
             $palabraCollection = agregarPalabra($palabraCollection, $palabra);
+            print_r($palabraCollection);
             break;
         default; break;
     }
 } while ($opcion != 8);
 
-
-/*$partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));
-//print_r($partida);
-//imprimirResultado($partida);*/
+?>
