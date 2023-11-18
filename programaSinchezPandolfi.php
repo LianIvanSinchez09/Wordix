@@ -33,7 +33,7 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
-// 
+// array de palabras a adivinar por el user
 $palabraCollection = cargarColeccionPalabras();
 
 
@@ -57,6 +57,7 @@ function cargarPartidas(){
     ];
     return $coleccion;
 }
+
 
 /**
  * Funcion que solicita al usuario un número entre un rango de valores
