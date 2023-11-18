@@ -137,6 +137,31 @@ function numeroDePalabra($array){
     return $array[$index];;
 }
 
+/**
+ * 6)
+ * Funcion que tiene un parametrole. 
+ * Le solicita al usuario un número de partida 
+ * y se muestra en pantalla
+ * @param ARRAY $parametro
+ */
+function mostrarUnaPartida($parametro){             //Falta corregir: cuando ingreso 1 es el numero 2 en el array
+    echo "Ingrese un numero de partida: ";          // Solo eso. ej ingreso 1. y el programa lo lee como numero 2 del array
+    $numPartida = trim(fgets(STDIN));
+    while(!($numPartida >= 0 && $numPartida < count($parametro))){
+        echo "Error. Volver a insertar un número de partida correcto";
+        $numPartida = trim(fgets(STDIN));
+    }
+    if($parametro[$numPartida]["intentos"] > 6){
+        $parametro[$numPartida]["intentos"] = "No adivino la palabra";
+    }
+        echo "***********************************\n";
+        echo "Partida WORDIX " . $numPartida . ": palabra " . $parametro[$numPartida]["palabraWordix"] . "\n";
+        echo "Jugador: " . $parametro[$numPartida]["jugador"] . "\n";
+        echo "Puntaje: " . $parametro[$numPartida]["puntaje"] . "\n";
+        echo "Intentos: " . $parametro[$numPartida]["intentos"] . "\n";
+        echo "***********************************\n";
+}
+
 /* ****COMPLETAR***** */
 
 //arrgelo indexado de arreglo asociativo
@@ -174,8 +199,8 @@ do {
 
             break;
         //Mostrar una partida
-        case 3: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
-
+        case 3:
+            mostrarUnaPartida($partidasCollection);
             break;
         //Mostrar la primer partida ganadora
         case 4: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
