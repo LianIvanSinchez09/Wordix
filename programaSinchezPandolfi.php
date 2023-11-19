@@ -177,8 +177,43 @@ function solicitarJugador(){
     return $aMinuscula;
 }
 
-function retornarPartidasPorNombre($collection){
+/**
+ * Dada una coleccion de palabras, muestra la collection de partidas ordenada por nombre de jugador elegido y palabra
+ * @param ARRAY $collection
+ */
 
+function retornarPartidasPorNombre($collection){
+    $sortedCollection = uasort($collection, 'cargarPartidas');
+}
+
+
+
+
+/**
+ * 8)
+ * funcion que dada una colección de partidas y el nombre de un jugador, 
+ * retorna el índice de la primer partida ganada por dicho jugador
+ * @param ARRAY $array
+ * @param STRING $persona
+ * @return INT
+ */
+function MostraPrimerPartidaGanadora($array, $persona)
+{
+    $mayor = 10000;
+    $i = 0;
+    $encontrado = false;
+    echo "cantidad: " . count($array) . "\n";
+
+    while ( $i < count($array) && $encontrado == false) {
+        if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] < 7) {
+            $encontrado = true;
+            $resultado = $i + 1;
+        } else {
+            $resultado = -1;
+        }
+        $i++;
+    }
+    return $resultado;
 }
 
 /* ****COMPLETAR***** */
@@ -222,8 +257,10 @@ do {
             mostrarUnaPartida($partidasCollection);
             break;
         //Mostrar la primer partida ganadora
-        case 4: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
-
+        case 4: 
+            echo "Ingrese jugador: ";
+            $jugadorGanador = trim(fgets(STDIN));
+            echo MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador)) . "\n";
             break;
         //Mostrar resumen de Jugador
         case 5: 
