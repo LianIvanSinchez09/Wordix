@@ -253,6 +253,74 @@ function MostraPrimerPartidaGanadora($array, $persona)
     return $resultado;
 }
 
+/**
+ * 9)
+ * funcion que dada la colección de partidas y el 
+ * nombre de un jugador, retorne el resumen del jugador
+ * @param ARRAY $array
+ * @param STRING $persona
+ * @return ARRAY
+ */
+function resumenDelJugador($array, $persona)
+{
+    $nuevaMatriz = [];
+    $nroPartidas = 0;
+    $puntajeTotal = 0;
+    $victorias = 0;
+    $adivinadas = 0;
+    $int1 = 0;
+    $int2 = 0;
+    $int3 = 0;
+    $int4 = 0;
+    $int5 = 0;
+    $int6 = 0;
+    for($i = 0; $i < count($array); $i++){
+        if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] < 7){
+            $victorias = $victorias + 1; 
+            $nroPartidas = $nroPartidas + 1;  
+        }
+
+        if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] > 6){
+            $nroPartidas = $nroPartidas + 1;
+        }
+
+        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 1){
+            $int1 = $int1 + 1;
+        } 
+        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 2){
+            $int2 = $int2 + 1;
+        }
+        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 3){
+            $int3 = $int3 + 1;
+        }
+        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 4){
+            $int4 = $int4 + 1;
+        }
+        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 5){
+            $int5 = $int5 + 1;
+        }
+        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 6){
+            $int6 = $int6 + 1;
+        }
+        $puntajeTotal = $puntajeTotal + $int1 * 6 + $int2 * 5 + $int3 * 4 + $int4 * 3 + $int5 * 2 + $int6 * 1; 
+    }
+    $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
+    $nuevaMatriz[0] = [
+        "Jugador" => strtolower($persona), 
+        "Partidas" => $nroPartidas, 
+        "Puntaje Total" => $puntajeTotal, 
+        "Victorias" => $victorias, 
+        "Porcentaje" => $porcentajeVictoria . "%",
+        "intento1" => $int1,
+        "intento2" => $int2, 
+        "intento3" => $int3, 
+        "intento4" => $int4, 
+        "intento5" => $int5, 
+        "intento6" => $int6
+    ];
+    return $nuevaMatriz;
+}
+
 /* ****COMPLETAR***** */
 
 //arrgelo indexado de arreglo asociativo
@@ -298,18 +366,26 @@ do {
         case 4: 
             echo "Ingrese jugador: ";
             $jugadorGanador = trim(fgets(STDIN));
-            echo MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador)) . "\n";
+            $mostrarPart = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador)) . "\n";
+            if ($mostrarPart > 0){
+                echo $mostrarPart . "\n";
+            } 
+            else {
+                echo "El jugador " . $jugadorGanador . " no ganó ninguna partida.\n";
+            }
             break;
         //Mostrar resumen de Jugador
         case 5: 
-            cargarPartidas();
-            for($i = 0; $i < count( cargarPartidas()); $i++){
-                echo "coleccionPartidas[" . $i . "] = ";
-                foreach( cargarPartidas()[$i] as $indice => $dato){
-                    echo $indice . ": " . $dato . " ";
-                }  
-                echo "\n";
-            }        
+            echo "Ingrese jugador: ";
+            $jugadorGanador = trim(fgets(STDIN));
+            $jugadorResumen = resumenDelJugador($partidasCollection, strtoupper($jugadorGanador));
+            for($i = 0; $i < count($jugadorResumen); $i++) {
+                echo "***********************************\n";
+                foreach ($jugadorResumen[$i] as $indice => $dato) {
+                    echo $indice . ": " . $dato . "\n";
+                }
+                echo "***********************************\n";
+            }   
             break;
         //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6: $partida = jugarWordix("MELON", strtolower(ingreseUnNombre()));        
