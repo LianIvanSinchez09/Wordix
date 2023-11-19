@@ -145,7 +145,7 @@ function numeroDePalabra($array){
  * @param ARRAY $parametro
  */
 function mostrarUnaPartida($parametro){             //Falta corregir: cuando ingreso 1 es el numero 2 en el array
-    echo "Ingrese un numero de partida: ";          // Solo eso. ej ingreso 1. y el programa lo lee como numero 2 del array
+    echo "Ingrese un numero de partida: ";          // Solo eso. ej ingreso 1. y el programa lo lee como numero 2 del array, SOLUCIONADO (Lian)
     $numPartida = trim(fgets(STDIN));
     $numPartidaReal = $numPartida - 1;
     while(!($numPartidaReal >= 0 && $numPartidaReal < count($parametro))){
@@ -178,16 +178,53 @@ function solicitarJugador(){
 }
 
 /**
+ * Compara 2 valores, si son iguales retorna 0, da un numero negativo si a es menor que b caso contrario da 1
+ * @param INT $a
+ * @param INT $b
+ * @return INT
+ */
+
+
+function cmp($a, $b) {
+    if ($a == $b){
+        $orden = 0;}
+    elseif($a < $b){
+        $orden = -1;}
+    else{
+        $orden = 1;
+    }
+    return $orden;
+}
+
+/**
+ * Separa los valores de una coleccion de partidas entre nombre y palabra correspondiente y los posiciona dentro de un nuevo array
+ * @param ARRAY $array
+ * @return ARRAY
+ */
+
+function nombreSort($array){
+    for($i = 0; $i < count($array); $i++){
+        $sortingNames[$i] = $array[$i]['jugador'];
+    }
+    for($i = 0; $i < count($array); $i++){
+        $sortingWords[$i] = $array[$i]['palabraWordix'];
+        foreach($sortingNames as $valor){
+            $finalSort[$i] = ['palabraWordix' => $sortingWords[$i], 'jugador' => $sortingNames[$i]];
+        }
+    }
+    return $finalSort;
+}
+
+/**
  * Dada una coleccion de palabras, muestra la collection de partidas ordenada por nombre de jugador elegido y palabra
  * @param ARRAY $collection
  */
 
 function retornarPartidasPorNombre($collection){
-    $sortedCollection = uasort($collection, 'cargarPartidas');
+    $sortedByNames = nombreSort($collection);
+    uasort($sortedByNames, 'cmp');
+    print_r($sortedByNames);
 }
-
-
-
 
 /**
  * 8)
@@ -235,10 +272,11 @@ function MostraPrimerPartidaGanadora($array, $persona)
 
 
 //Proceso:
-
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras();
+$test = retornarPartidasPorNombre($partidasCollection);
+print_r($test);
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
