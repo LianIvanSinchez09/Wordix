@@ -147,19 +147,38 @@ function numeroDePalabra($array){
 function mostrarUnaPartida($parametro){             //Falta corregir: cuando ingreso 1 es el numero 2 en el array
     echo "Ingrese un numero de partida: ";          // Solo eso. ej ingreso 1. y el programa lo lee como numero 2 del array
     $numPartida = trim(fgets(STDIN));
-    while(!($numPartida >= 0 && $numPartida < count($parametro))){
-        echo "Error. Volver a insertar un número de partida correcto";
-        $numPartida = trim(fgets(STDIN));
+    $numPartidaReal = $numPartida - 1;
+    while(!($numPartidaReal >= 0 && $numPartidaReal < count($parametro))){
+        echo "Error. Volver a insertar un número de partida correcto: ";
+        $numPartidaReal = trim(fgets(STDIN));
     }
-    if($parametro[$numPartida]["intentos"] > 6){
-        $parametro[$numPartida]["intentos"] = "No adivino la palabra";
+    if($parametro[$numPartidaReal]["intentos"] > 6){
+        $parametro[$numPartidaReal]["intentos"] = "No adivino la palabra";
     }
         echo "***********************************\n";
-        echo "Partida WORDIX " . $numPartida . ": palabra " . $parametro[$numPartida]["palabraWordix"] . "\n";
-        echo "Jugador: " . $parametro[$numPartida]["jugador"] . "\n";
-        echo "Puntaje: " . $parametro[$numPartida]["puntaje"] . "\n";
-        echo "Intentos: " . $parametro[$numPartida]["intentos"] . "\n";
+        echo "Partida WORDIX " . $numPartida . ": palabra " . $parametro[$numPartidaReal]["palabraWordix"] . "\n";
+        echo "Jugador: " . $parametro[$numPartidaReal]["jugador"] . "\n";
+        echo "Puntaje: " . $parametro[$numPartidaReal]["puntaje"] . "\n";
+        echo "Intentos: " . $parametro[$numPartidaReal]["intentos"] . "\n";
         echo "***********************************\n";
+}
+
+
+/**
+ *  Retorna el nombre de un jugador en minusculas
+ *  @param ARRAY $collection
+ *  @param STRING $name
+ *  @return ARRAY
+ */
+function solicitarJugador(){
+    echo "Ingrese su nombre: ";
+    $name = trim(fgets(STDIN));
+    $aMinuscula = strtolower($name);
+    return $aMinuscula;
+}
+
+function retornarPartidasPorNombre($collection){
+
 }
 
 /* ****COMPLETAR***** */
