@@ -72,17 +72,6 @@ function seleccionarOpcion(){
     return $opcion;
 }
 
-/**
- * Funcion agregarPalabra añade una palabra y la agrega al final del array
- * @param ARRAY palabraCollection
- * @param STRING 
- */
-
-function agregarPalabra($col, $pal){
-    $col[count($col)] = $pal;
-    return $col;
-}
-
 /** 
  * Funcion que retorna un numero aleatorio
  * @return ARRAY
@@ -139,7 +128,7 @@ function numeroRangoValores(){
 }
 
 /**
- * 6) CORREGIR FRAN URGENTE ES PARA CASE 4.
+ * 6)
  * Funcion que tiene un parametro. 
  * Le solicita al usuario un número de partida 
  * y se muestra en pantalla
@@ -159,6 +148,16 @@ function mostrarUnaPartida($numeroIndice){
         echo "***********************************\n\n";
 }
 
+/**
+ * 7)
+ * Funcion agregarPalabra añade una palabra y la agrega al final del array
+ * @param ARRAY palabraCollection
+ * @param STRING 
+ */
+ function agregarPalabra($col, $pal){
+    $col[count($col)] = $pal;
+    return $col;
+}
 
 /**
  *  Retorna el nombre de un jugador en minusculas
@@ -179,8 +178,6 @@ function solicitarJugador(){
  * @param INT $b
  * @return INT
  */
-
-
 function cmp($a, $b) {
     if ($a == $b){
         $orden = 0;}
@@ -198,7 +195,6 @@ function cmp($a, $b) {
  * @param ARRAY $array
  * @return ARRAY
  */
-
 function nombreSort($array){
     for($i = 0; $i < count($array); $i++){
         $sortingNames[$i] = $array[$i]['jugador'];
@@ -217,7 +213,6 @@ function nombreSort($array){
  * de partidas ordenada por nombre de jugador elegido y palabra
  * @param ARRAY $collection
  */
-
 function retornarPartidasPorNombre($collection){
     $sortedByNames = nombreSort($collection);
     uasort($sortedByNames, 'cmp');
