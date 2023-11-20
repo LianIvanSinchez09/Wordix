@@ -184,7 +184,6 @@ function solicitarJugador(){
  * @return INT
  */
 
-
 function cmp($a, $b) {
     if ($a == $b){
         $orden = 0;}
@@ -275,8 +274,8 @@ function MostraPrimerPartidaGanadora($array, $persona)
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras();
-$test = retornarPartidasPorNombre($partidasCollection);
-print_r($test);
+// $test = retornarPartidasPorNombre($partidasCollection);
+// print_r($test);
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
