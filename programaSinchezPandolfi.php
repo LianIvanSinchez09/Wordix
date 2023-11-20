@@ -17,7 +17,7 @@ include_once("wordix.php");
 /**************************************/
 
 /**
- * 3.1)
+ * 1)
  * Obtiene una colección de palabras
  * @return array
  */
@@ -34,7 +34,7 @@ function cargarColeccionPalabras()
 }
 
 /**
- * 3.2)
+ * 2)
  * Funcion que almacena información de las partidas
  */
 function cargarPartidas(){
@@ -44,7 +44,7 @@ function cargarPartidas(){
     $partida[2] = [ "palabraWordix" => "GOTAS", "jugador" =>  "LAUTARO", "intentos" => 3, "puntaje" =>  4];
     $partida[3] = [ "palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  3];
     $partida[4] = [ "palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  2];
-    $partida[5] = [ "palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 6, "puntaje" =>  1];
+    $partida[5] = [ "palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 7, "puntaje" =>  0];
     $partida[6] = [ "palabraWordix" => "PISOS", "jugador" =>  "FABIO", "intentos" => 1, "puntaje" =>  6];
     $partida[7] = [ "palabraWordix" => "MELON", "jugador" =>  "CLAUDIO", "intentos" => 3, "puntaje" =>  4];
     $partida[8] = [ "palabraWordix" => "VERDE", "jugador" =>  "ESTEBAN", "intentos" => 2, "puntaje" =>  5];
@@ -52,24 +52,8 @@ function cargarPartidas(){
     return $partida; 
 }
 
-
 /**
- * Funcion que solicita al usuario un número entre un rango de valores
- * Si el número ingresado por el usuario no es válido, 
- * la función se encarga de volver a pedirlo. 
- * La función retorna un número válido.
- * @return INT
- */
-function numeroRangoValores(){
-    $rango = trim(fgets(STDIN));
-    while(!($rango >= 1 && $rango <= 8)){
-        echo "Opcion Invalido.\nIngrese un numero del menu: ";
-        $rango = trim(fgets(STDIN));
-    }
-    return $rango;
-}
-
-/**
+ * 3)
  * funcion que retorna un Menu de Partidas
  * @return INT
  */
@@ -138,29 +122,41 @@ function numeroDePalabra($array){
 }
 
 /**
- * 6)
- * Funcion que tiene un parametrole. 
+ * 5)
+ * Funcion que solicita al usuario un número entre un rango de valores
+ * Si el número ingresado por el usuario no es válido, 
+ * la función se encarga de volver a pedirlo. 
+ * La función retorna un número válido.
+ * @return INT
+ */
+function numeroRangoValores(){
+    $rango = trim(fgets(STDIN));
+    while(!($rango >= 1 && $rango <= 8)){
+        echo "Opcion Invalido.\nIngrese un numero del menu: ";
+        $rango = trim(fgets(STDIN));
+    }
+    return $rango;
+}
+
+/**
+ * 6) CORREGIR FRAN URGENTE ES PARA CASE 4.
+ * Funcion que tiene un parametro. 
  * Le solicita al usuario un número de partida 
  * y se muestra en pantalla
- * @param ARRAY $parametro
+ * @param INT $parametro
  */
-function mostrarUnaPartida($parametro){             //Falta corregir: cuando ingreso 1 es el numero 2 en el array
-    echo "Ingrese un numero de partida: ";          // Solo eso. ej ingreso 1. y el programa lo lee como numero 2 del array, SOLUCIONADO (Lian)
-    $numPartida = trim(fgets(STDIN));
-    $numPartidaReal = $numPartida - 1;
-    while(!($numPartidaReal >= 0 && $numPartidaReal < count($parametro))){
-        echo "Error. Volver a insertar un número de partida correcto: ";
-        $numPartidaReal = trim(fgets(STDIN));
+function mostrarUnaPartida($numeroIndice){  
+    $nuevoNumeroIndice = $numeroIndice - 1;          
+    $array = cargarPartidas();
+    if($array[$nuevoNumeroIndice]["intentos"] > 6){
+        $array[$nuevoNumeroIndice]["intentos"] = "No adivino la palabra";
     }
-    if($parametro[$numPartidaReal]["intentos"] > 6){
-        $parametro[$numPartidaReal]["intentos"] = "No adivino la palabra";
-    }
-        echo "***********************************\n";
-        echo "Partida WORDIX " . $numPartida . ": palabra " . $parametro[$numPartidaReal]["palabraWordix"] . "\n";
-        echo "Jugador: " . $parametro[$numPartidaReal]["jugador"] . "\n";
-        echo "Puntaje: " . $parametro[$numPartidaReal]["puntaje"] . "\n";
-        echo "Intentos: " . $parametro[$numPartidaReal]["intentos"] . "\n";
-        echo "***********************************\n";
+        echo "\n***********************************\n";
+        echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $array[$nuevoNumeroIndice]["palabraWordix"] . "\n";
+        echo "Jugador: " . $array[$nuevoNumeroIndice]["jugador"] . "\n";
+        echo "Puntaje: " . $array[$nuevoNumeroIndice]["puntaje"] . "\n puntos";
+        echo "Intentos: " . $array[$nuevoNumeroIndice]["intentos"] . "\n";
+        echo "***********************************\n\n";
 }
 
 
@@ -197,7 +193,8 @@ function cmp($a, $b) {
 }
 
 /**
- * Separa los valores de una coleccion de partidas entre nombre y palabra correspondiente y los posiciona dentro de un nuevo array
+ * Separa los valores de una coleccion de partidas entre nombre y 
+ * palabra correspondiente y los posiciona dentro de un nuevo array
  * @param ARRAY $array
  * @return ARRAY
  */
@@ -216,7 +213,8 @@ function nombreSort($array){
 }
 
 /**
- * Dada una coleccion de palabras, muestra la collection de partidas ordenada por nombre de jugador elegido y palabra
+ * Dada una coleccion de palabras, muestra la collection 
+ * de partidas ordenada por nombre de jugador elegido y palabra
  * @param ARRAY $collection
  */
 
@@ -239,8 +237,6 @@ function MostraPrimerPartidaGanadora($array, $persona)
     $mayor = 10000;
     $i = 0;
     $encontrado = false;
-    echo "cantidad: " . count($array) . "\n";
-
     while ( $i < count($array) && $encontrado == false) {
         if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] < 7) {
             $encontrado = true;
@@ -342,7 +338,6 @@ function resumenDelJugador($array, $persona)
 //Proceso:
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
-$palabraCollection = cargarColeccionPalabras();
 $test = retornarPartidasPorNombre($partidasCollection);
 print_r($test);
 do {
@@ -355,36 +350,45 @@ do {
             
             break;
         //Jugar al wordix con una palabra aleatoria
-        case 2: $partida = jugarWordix(numeroAleatorio($palabraCollection), strtolower(ingreseUnNombre()));        
-
+        case 2: 
+            jugarWordix(numeroAleatorio($palabraCollection), strtolower(ingreseUnNombre()));
             break;
         //Mostrar una partida
         case 3:
-            mostrarUnaPartida($partidasCollection);
+            echo "Ingrese un numero de partida: ";
+            $numeroDePartida = trim(fgets(STDIN));
+            while(($numeroDePartida > count($partidasCollection) || $numeroDePartida < 0)){
+                echo "Numero invalido\n";
+                echo "Ingrese un numero valido: ";
+                $numeroDePartida = trim(fgets(STDIN));
+            }
+            mostrarUnaPartida($numeroDePartida);
             break;
         //Mostrar la primer partida ganadora
         case 4: 
-            echo "Ingrese jugador: ";
+            echo "Ingrese nombre de jugador: ";
             $jugadorGanador = trim(fgets(STDIN));
-            $mostrarPart = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador)) . "\n";
-            if ($mostrarPart > 0){
-                echo $mostrarPart . "\n";
+            $indice = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador));
+            if($indice > 0){
+
+                mostrarUnaPartida($indice);
             } 
-            else {
-                echo "El jugador " . $jugadorGanador . " no ganó ninguna partida.\n";
+            else{
+                echo "\nEl jugador " . $jugadorGanador . " no ganó ninguna partida" . "\n\n";
             }
             break;
         //Mostrar resumen de Jugador
+        //Hay error en el puntaje final
         case 5: 
             echo "Ingrese jugador: ";
             $jugadorGanador = trim(fgets(STDIN));
             $jugadorResumen = resumenDelJugador($partidasCollection, strtoupper($jugadorGanador));
             for($i = 0; $i < count($jugadorResumen); $i++) {
-                echo "***********************************\n";
+                echo "\n***********************************\n";
                 foreach ($jugadorResumen[$i] as $indice => $dato) {
                     echo $indice . ": " . $dato . "\n";
                 }
-                echo "***********************************\n";
+                echo "***********************************\n\n";
             }   
             break;
         //Mostrar listado de partidas ordenadas por jugador y por palabra
