@@ -68,6 +68,7 @@ function seleccionarOpcion(){
     echo "7: Agregar una palabra de 5 letras a Wordix\n";
     echo "8: Salir\n";
     echo "Ingrese una opcion:\n";
+    // la funcion numeroRangoValores(max, min) agregar parametros sino utilizar en wordix pero sabien que hace a la hora de presentarlo
     $opcion = numeroRangoValores();
     return $opcion;
 }
@@ -134,7 +135,7 @@ function mostrarUnaPartida($numeroIndice){
         echo "\n***********************************\n";
         echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $array[$nuevoNumeroIndice]["palabraWordix"] . "\n";
         echo "Jugador: " . $array[$nuevoNumeroIndice]["jugador"] . "\n";
-        echo "Puntaje: " . $array[$nuevoNumeroIndice]["puntaje"] . "\n puntos";
+        echo "Puntaje: " . $array[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
         echo "Intentos: " . $array[$nuevoNumeroIndice]["intentos"] . "\n";
         echo "***********************************\n\n";
 }
@@ -164,13 +165,12 @@ function solicitarJugador(){
 }
 
 /**
- * Compara 2 valores, si son iguales retorna 0, da un numero negativo si a es menor que b caso contrario da 1
+ * Compara 2 valores, si son iguales retorna 0, da un numero 
+ * negativo si a es menor que b caso contrario da 1
  * @param INT $a
  * @param INT $b
  * @return INT
  */
-
-
 function cmp($a, $b) {
     if ($a == $b){
         $orden = 0;}
@@ -226,7 +226,7 @@ function MostraPrimerPartidaGanadora($array, $persona)
     $i = 0;
     $encontrado = false;
     while ( $i < count($array) && $encontrado == false) {
-        if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] < 7) {
+        if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] > 0) {
             $encontrado = true;
             $resultado = $i + 1;
         } else {
@@ -236,6 +236,7 @@ function MostraPrimerPartidaGanadora($array, $persona)
     }
     return $resultado;
 }
+
 
 /**
  * 9)
@@ -247,11 +248,11 @@ function MostraPrimerPartidaGanadora($array, $persona)
  */
 function resumenDelJugador($array, $persona)
 {
+
     $nuevaMatriz = [];
     $nroPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
-    $adivinadas = 0;
     $int1 = 0;
     $int2 = 0;
     $int3 = 0;
@@ -285,9 +286,10 @@ function resumenDelJugador($array, $persona)
         }
         if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 6){
             $int6 = $int6 + 1;
-        }
-        $puntajeTotal = $puntajeTotal + $int1 * 6 + $int2 * 5 + $int3 * 4 + $int4 * 3 + $int5 * 2 + $int6 * 1; 
+        } 
+        
     }
+    $puntajeTotal = $puntajeTotal + $int1 * 6 + $int2 * 5 + $int3 * 4 + $int4 * 3 + $int5 * 2 + $int6 * 1;
     $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
     $nuevaMatriz[0] = [
         "Jugador" => strtolower($persona), 
@@ -353,9 +355,10 @@ function elegirPalabra($array){
 
     //almacena todos datos de la partida
     $nuevaPos = count($array);
-    $array[$nuevaPos] = jugarWordix($array[$numero-1], $nombreMayuscula);
+    $partidaJugada = jugarWordix($array[$numero-1], $nombreMayuscula);
+    $array[$nuevaPos] = $partidaJugada;
+    print_r($partidaJugada);
 }
-
 
 
 /* ****COMPLETAR***** */
