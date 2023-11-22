@@ -93,20 +93,11 @@ function ingreseUnNombre(){
 
 /**
  * Funcion que retorna un numero entero del indice del arreglo
- * @return INT
+ * @param ARRAY $array
  */
 function numeroDePalabra($array){
-    //$col = [];
     echo "Ingrese un numero de palabra para jugar: ";
     $index = trim(fgets(STDIN));
-    
-    //CONSULTA: QUE REALIZA ESTA ALTERNATIVA?
-
-    /*if ($index >= 0 && $index < count($col)) {
-        $numero = $col[$index];
-    } else {
-        echo "indice fuera de rango\n";
-    }*/
     return $array[$index];;
 }
 
@@ -304,12 +295,12 @@ function resumenDelJugador($array, $persona)
         "Puntaje Total" => $puntajeTotal, 
         "Victorias" => $victorias, 
         "Porcentaje" => $porcentajeVictoria . "%",
-        "intento1" => $int1,
-        "intento2" => $int2, 
-        "intento3" => $int3, 
-        "intento4" => $int4, 
-        "intento5" => $int5, 
-        "intento6" => $int6
+        "Intento 1" => $int1,
+        "Intento 2" => $int2, 
+        "Intento 3" => $int3, 
+        "Intento 4" => $int4, 
+        "Intento 5" => $int5, 
+        "Intento 6" => $int6
     ];
     return $nuevaMatriz;
 }
@@ -333,14 +324,26 @@ function resumenDelJugador($array, $persona)
 
 
 //Proceso:
-$palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
-$partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
-$palabraCollection = cargarColeccionPalabras();
+/**
+ * Algoritmo Principal, se le muestra un menu al usuario con opciones para jugar al Wordix, mostrar estadisticas, etc.
+ * ARRAY $palabraCollection - arreglo con las palabras con las que se puede jugar al Wordix.
+ * ARRAY $partidasCollection - arreglo con informacion de partidas de Wordix.
+ * INT $opcion - numero de opcion, segun su valor se ejecuta una opcion diferente para jugar al Wordix o mostrar ciertas estadisticas.
+ * INT $nuevaPos 
+ * INT $numeroDePartida
+ * STRING $jugadorGanador
+ * INT $indice
+ * ARRAY $jugadorResumen
+ * ARRAY $listado
+ * STRING $palabra
+ */
 do {
+    $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
+    $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
-        case 1: 
+        case 1:
             $nuevaPos = count($partidasCollection);
             $partidasCollection[$nuevaPos] = jugarWordix(numeroDePalabra($palabraCollection), strtolower(ingreseUnNombre()));
             
