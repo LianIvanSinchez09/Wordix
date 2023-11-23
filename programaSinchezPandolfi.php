@@ -82,15 +82,15 @@ function numeroAleatorio($palabraCollection){
     //array_rand
 }
 
-/**
- * Funcion que retorna el nombre ingresado por el usuario
- * @return STRING
- */
-function ingreseUnNombre(){
-    echo "Ingrese su nombre: ";
-    $nombre = trim(fgets(STDIN));
-    return $nombre;
-}
+// /**
+//  * Funcion que retorna el nombre ingresado por el usuario
+//  * @return STRING
+//  */
+// function ingreseUnNombre(){
+//     echo "Ingrese su nombre: ";
+//     $nombre = trim(fgets(STDIN));
+//     return $nombre;
+// }
 
 /**
  * Funcion que retorna un numero entero del indice del arreglo
@@ -151,15 +151,23 @@ function mostrarUnaPartida($numeroIndice){
     return $col;
 }
 
-/**
+/** 10)
  *  Retorna el nombre de un jugador en minusculas
- *  @param ARRAY $collection
- *  @param STRING $name
- *  @return ARRAY
+ *  @return STRING
  */
 function solicitarJugador(){
     echo "Ingrese su nombre: ";
     $name = trim(fgets(STDIN));
+    $nameTrim = trim($name);
+    $primerLetra = $nameTrim[0];
+    $comprobante = esPalabra($primerLetra);
+    while(!$comprobante){
+        echo "El primer carácter del nombre de usuario debe ser una letra. Introduzca su nombre: ";
+        $name = trim(fgets(STDIN));
+        $nameTrim = trim($name);
+        $primerLetra = $nameTrim[0];
+        $comprobante = esPalabra($primerLetra);
+    }
     $aMinuscula = strtolower($name);
     return $aMinuscula;
 }
@@ -326,8 +334,7 @@ function elegirPalabra($array){
     $numerosDePartida = arrayNumeroPalabra();
     $encontrado = false;
     $a = 0;
-    echo "Ingrese nombre: ";
-    $nombre = trim(fgets(STDIN));
+    $nombre = solicitarJugador();
     $nombreMayuscula = strtoupper($nombre);
     echo "Ingrese numero: ";
     $numero = trim(fgets(STDIN));
@@ -407,7 +414,7 @@ do {
             break;
         //Jugar al wordix con una palabra aleatoria
         case 2: 
-            jugarWordix(numeroAleatorio($palabraCollection), strtolower(ingreseUnNombre()));
+            jugarWordix(numeroAleatorio($palabraCollection), strtolower(solicitarJugador()));
             break;
         //Mostrar una partida
         case 3:
