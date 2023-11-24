@@ -256,7 +256,7 @@ function MostraPrimerPartidaGanadora($array, $persona)
  */
 function resumenDelJugador($array, $persona)
 {
-
+    
     $nuevaMatriz = [];
     $nroPartidas = 0;
     $puntajeTotal = 0;
@@ -267,51 +267,77 @@ function resumenDelJugador($array, $persona)
     $int4 = 0;
     $int5 = 0;
     $int6 = 0;
-    for($i = 0; $i < count($array); $i++){
-        if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] < 7){
-            $victorias = $victorias + 1; 
-            $nroPartidas = $nroPartidas + 1;  
+    $found = false;
+    $k = 0;
+    while($k < count($array) && !$found){
+        if($array[$k]["jugador"] == $persona){
+            $found = true;
         }
-
-        if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] > 6){
-            $nroPartidas = $nroPartidas + 1;
-        }
-
-        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 1){
-            $int1 = $int1 + 1;
-        } 
-        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 2){
-            $int2 = $int2 + 1;
-        }
-        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 3){
-            $int3 = $int3 + 1;
-        }
-        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 4){
-            $int4 = $int4 + 1;
-        }
-        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 5){
-            $int5 = $int5 + 1;
-        }
-        if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 6){
-            $int6 = $int6 + 1;
-        } 
-        
+        $k++;
     }
-    $puntajeTotal = $puntajeTotal + $int1 * 6 + $int2 * 5 + $int3 * 4 + $int4 * 3 + $int5 * 2 + $int6 * 1;
-    $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
+    if($found){
+        for($i = 0; $i < count($array); $i++){
+            if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] < 7){
+                $victorias = $victorias + 1; 
+                $nroPartidas = $nroPartidas + 1;  
+            }
+    
+            if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] > 6){
+                $nroPartidas = $nroPartidas + 1;
+            }
+    
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 1){
+                $int1 = $int1 + 1;
+            } 
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 2){
+                $int2 = $int2 + 1;
+            }
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 3){
+                $int3 = $int3 + 1;
+            }
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 4){
+                $int4 = $int4 + 1;
+            }
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 5){
+                $int5 = $int5 + 1;
+            }
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 6){
+                $int6 = $int6 + 1;
+            } 
+        }
+        $puntajeTotal = $puntajeTotal + $int1 * 6 + $int2 * 5 + $int3 * 4 + $int4 * 3 + $int5 * 2 + $int6 * 1;
+        $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
+        $nuevaMatriz[0] = [
+            "Jugador" => strtolower($persona), 
+            "Partidas" => $nroPartidas, 
+            "Puntaje Total" => $puntajeTotal, 
+            "Victorias" => $victorias, 
+            "Porcentaje" => $porcentajeVictoria . "%",
+            "Intento 1" => $int1,
+            "Intento 2" => $int2, 
+            "Intento 3" => $int3, 
+            "Intento 4" => $int4, 
+            "Intento 5" => $int5, 
+            "Intento 6" => $int6
+        ];
+    }
+    else{
+    $puntajeTotal = 0;
+    $porcentajeVictoria = 0;
     $nuevaMatriz[0] = [
-        "Jugador" => strtolower($persona), 
-        "Partidas" => $nroPartidas, 
-        "Puntaje Total" => $puntajeTotal, 
-        "Victorias" => $victorias, 
-        "Porcentaje" => $porcentajeVictoria . "%",
-        "Intento 1" => $int1,
-        "Intento 2" => $int2, 
-        "Intento 3" => $int3, 
-        "Intento 4" => $int4, 
-        "Intento 5" => $int5, 
-        "Intento 6" => $int6
+        "Jugador" => "-", 
+        "Partidas" => 0, 
+        "Puntaje Total" => 0, 
+        "Victorias" => 0, 
+        "Porcentaje" => 0 . "%",
+        "Intento 1" => 0,
+        "Intento 2" => 0, 
+        "Intento 3" => 0, 
+        "Intento 4" => 0, 
+        "Intento 5" => 0, 
+        "Intento 6" => 0
     ];
+    }
     return $nuevaMatriz;
 }
 
