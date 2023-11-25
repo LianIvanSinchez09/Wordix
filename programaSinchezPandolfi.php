@@ -202,8 +202,6 @@ function nombreSort($array, $position){
     $sortingWords = [];
     $finalSort = [];
 
-
-
     for ($i = 0; $i < $position; $i++) {
         $sortingNames[$i] = $array[$i]['jugador'];
         $sortingWords[$i] = $array[$i]['palabraWordix'];
@@ -450,12 +448,13 @@ $partida = [];
 $resultadoPartida = [];
 $currPosition = count($partidasCollection);
 do {
+
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1:
-
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $numerosDePartida);
+            $resultadoPartida = $partida;
             break;
         //Jugar al wordix con una palabra aleatoria
         case 2: 
@@ -512,10 +511,8 @@ do {
             break;
         default; break;
     }
-    $resultadoPartida = $partida;
     $partidasCollection[$currPosition] = $resultadoPartida; 
     $currPosition++;
-    $resultadoPartida = [];
 } while ($opcion != 8);
 
 
