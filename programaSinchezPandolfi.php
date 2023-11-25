@@ -82,16 +82,6 @@ function numeroAleatorio($palabraCollection){
     //array_rand
 }
 
-// /**
-//  * Funcion que retorna el nombre ingresado por el usuario
-//  * @return STRING
-//  */
-// function ingreseUnNombre(){
-//     echo "Ingrese su nombre: ";
-//     $nombre = trim(fgets(STDIN));
-//     return $nombre;
-// }
-
 /**
  * Funcion que retorna un numero entero del indice del arreglo
  * @param ARRAY $array
@@ -202,7 +192,7 @@ function nombreSort($array, $position){
     $sortingWords = [];
     $finalSort = [];
 
-    for ($i = 0; $i < $position; $i++) {
+    for ($i = 0; $i < count($array); $i++) {
         $sortingNames[$i] = $array[$i]['jugador'];
         $sortingWords[$i] = $array[$i]['palabraWordix'];
     }
@@ -210,7 +200,6 @@ function nombreSort($array, $position){
     for ($i = 0; $i < count($array); $i++) {
         $finalSort[$i] = ['jugador' => $sortingNames[$i], 'palabraWordix' => $sortingWords[$i]];
     }
-
     return $finalSort;
 }
 
@@ -401,8 +390,6 @@ function elegirPalabra($arrayColeccionPalabras, $coleccionCargarPartidas, $colec
     $partidaJugada = jugarWordix($arrayColeccionPalabras[$numero-1], $nombreMayuscula);
     $nuevaPos = count($coleccionCargarPartidas);
     $coleccionCargarPartidas[$nuevaPos] = $partidaJugada;
-    
-    print_r($coleccionCargarPartidas);
     return $partidaJugada;
 }
 
@@ -444,22 +431,22 @@ $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $numerosDePartida = arrayNumeroPalabra();
 $encontrado = false;
 $a = 0;
-$partida = [];
 $resultadoPartida = [];
 $currPosition = count($partidasCollection);
 do {
-
     $opcion = seleccionarOpcion();
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1:
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $numerosDePartida);
-            $resultadoPartida = $partida;
+            $partidasCollection[$currPosition] = $partida; 
+            $currPosition++;
             break;
         //Jugar al wordix con una palabra aleatoria
         case 2: 
-            $partida = jugarWordix(numeroAleatorio($palabraCollection), strtolower(solicitarJugador()));
-            $resultadoPartida = $partida;
+            $partida = jugarWordix(numeroAleatorio($palabraCollection), strtoupper(solicitarJugador()));
+            $partidasCollection[$currPosition] = $partida; 
+            $currPosition++;
             break;
         //Mostrar una partida
         case 3:
@@ -501,7 +488,6 @@ do {
         //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6: 
             $listado = retornarPartidasPorNombre($partidasCollection, $currPosition);
-            print_r($listado);
             break;
         //Agregar una palabra de 5 letras a Wordix
         case 7: 
@@ -511,8 +497,7 @@ do {
             break;
         default; break;
     }
-    $partidasCollection[$currPosition] = $resultadoPartida; 
-    $currPosition++;
+    // $partidasCollection[$currPosition] = $partida; 
 } while ($opcion != 8);
 
 
