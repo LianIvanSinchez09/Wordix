@@ -363,13 +363,8 @@ function arrayNumeroPalabra(){
     return $arrayNumero;
 }
 
-/** Funcion que permite jugar al usuario al Wordix con una palabra de la collection seleccionada
- * @param ARRAY $array **PALABRAS**
- *  @param ARRAY $collection **PARTIDAS**
- * @return ARRAY **PARTIDA JUGADA**
-*/
-function elegirPalabra($array, $collection){
-    $numerosDePartida = arrayNumeroPalabra();
+function elegirPalabra($arrayColeccionPalabras, $coleccionCargarPartidas, $coleccionNumeroJugador){
+    $coleccionNumeroJugador;
     $encontrado = false;
     $a = 0;
     $nombre = solicitarJugador();
@@ -384,16 +379,16 @@ function elegirPalabra($array, $collection){
         }while(esPalabra($numero));
     }
     //verifica si el numero fue elegido anteriormente
-    while ($a < count($numerosDePartida) && $encontrado == false) {
-        if ($numerosDePartida[$a]["nombre"] == $nombreMayuscula && $numerosDePartida[$a]["numero"] == $numero) {
+    while ($a < count($coleccionNumeroJugador) && $encontrado == false) {
+        if ($coleccionNumeroJugador[$a]["nombre"] == $nombreMayuscula && $coleccionNumeroJugador[$a]["numero"] == $numero) {
             echo "Este numero ya existe. ";
             echo "\nIngrese un nuevo numero: ";
             $numero = trim(fgets(STDIN));
-            if($numerosDePartida[$a]["numero"] == $numero){
+            if($coleccionNumeroJugador[$a]["numero"] == $numero){
                 do{
                     echo "Ingrese nuevo numero: ";
                     $numero = trim(fgets(STDIN));
-                }while($numerosDePartida[$a]["numero"] == $numero);
+                }while($coleccionNumeroJugador[$a]["numero"] == $numero);
             }
             $encontrado = true;
         }
@@ -401,11 +396,15 @@ function elegirPalabra($array, $collection){
     }
 
     //almacena nombre del jugador y numero de palabra asignada
-    $nuevaPosicion = count($numerosDePartida);
-    $numerosDePartida[$nuevaPosicion] = ["numero" => $numero, "nombre" => $nombreMayuscula];
+    $nuevaPosicion = count($coleccionNumeroJugador);
+    $coleccionNumeroJugador[$nuevaPosicion] = ["numero" => $numero, "nombre" => $nombreMayuscula];
 
     //almacena todos datos de la partida
-    $partidaJugada = jugarWordix($array[$numero-1], $nombreMayuscula);
+    $partidaJugada = jugarWordix($arrayColeccionPalabras[$numero-1], $nombreMayuscula);
+    $nuevaPos = count($coleccionCargarPartidas);
+    $coleccionCargarPartidas[$nuevaPos] = $partidaJugada;
+    
+    print_r($coleccionCargarPartidas);
     return $partidaJugada;
 }
 
@@ -455,7 +454,8 @@ do {
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1:
-            $partida = elegirPalabra($palabraCollection, $partidasCollection);
+
+            $partida = elegirPalabra($palabraCollection, $partidasCollection, $numerosDePartida);
             break;
         //Jugar al wordix con una palabra aleatoria
         case 2: 
