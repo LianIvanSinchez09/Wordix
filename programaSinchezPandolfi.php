@@ -1,8 +1,6 @@
 <?php
 include_once("wordix.php");
 
-
-
 /**************************************/
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
@@ -87,7 +85,8 @@ function seleccionarOpcion()
  */
 function numeroAleatorio($collection)
 {
-    return $collection[random_int(1, count($collection))];
+    $numeroAlt = (count($collection)-1);
+    return $collection[random_int(0, $numeroAlt)];
     //array_rand
 }
 
@@ -363,6 +362,7 @@ function resumenDelJugador($array, $persona)
     return $nuevaMatriz;
 }
 
+
 /** Permite al usuario dejar jugar al Wordix con la palabra elegida y almacena la partida
  * @param ARRAY $arrayColeccionPalabras, 
  * @param ARRAY $coleccionCargarPartidas, 
@@ -382,7 +382,7 @@ function elegirPalabra($palabras, $partidas, $jugador)
         $palabraAJugar = $palabras[$inidice];          
         $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $inidice);
         if ($palabraDisponible) {
-            echo $palabraDisponible . " Ups, esa palabra ya fue utilizada! \n";
+            echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
         }
     } while ($palabraDisponible);
 
@@ -398,7 +398,7 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
 
     while ($j < $cantidadPartidas && !$palabraAJugar) { 
         if ($jugador == $partidas[$j]["jugador"]) {
-            if ($palabras[$inidice] == $partidas[$j]["palabraWordix"]) {
+            if ($inidice == $partidas[$j]["palabraWordix"]) {
                 $palabraAJugar = true;
             }
         }
@@ -406,6 +406,22 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
     }
 
     return $palabraAJugar;
+}
+
+function palabraAleatoria($palabras, $partidas, $jugador){
+    do {    
+        $numeroAlt = numeroAleatorio($palabras);       
+        echo "\n\n" . $numeroAlt . "\n\n";
+            
+        $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $numeroAlt);
+        if ($palabraDisponible) {
+            echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
+        }
+    } while ($palabraDisponible);
+
+    $partida = jugarWordix($numeroAlt, $jugador);
+
+    return $partida;
 }
 
 
@@ -458,8 +474,10 @@ do {
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
-            $partida = jugarWordix(numeroAleatorio($palabraCollection), strtoupper(solicitarJugador()));
-            $partidasCollection[$currPosition] = $partida;
+            $nombre = solicitarJugador();  
+            $nombreMayuscula = strtoupper($nombre);                               
+            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
+            $partidasCollection[$currPosition] = $partidaAleatoria;
             $currPosition++;
             break;
             //Mostrar una partida
@@ -514,13 +532,4 @@ do {
     }
     // $partidasCollection[$currPosition] = $partida; 
 } while ($opcion != 8);
-
-/*
- echo "Ingrese numero: ";
-                $numero = trim(fgets(STDIN));
-
-                if (esPalabra($numero)) {
-                    do {
-                        echo "ERROR. No se permiten letras. Por favor ingrese un numero:";
-                        $numero = trim(fgets(STDIN));
-                    } while (esPalabra($numero));*/
+?>
