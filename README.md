@@ -5,7 +5,7 @@ Juego Wordix desarrollado en la materia Introduccion a la programacion (FAI)
 
 ```bash
 Introduccion a la programacion
-Tecnicatura en Desarrollow Web
+Tecnicatura en Desarrollo Web
 Facultad de Informatica
 Universidad del Comahue
 ```
