@@ -22,6 +22,7 @@ include_once("wordix.php");
  * @return array
  */
 function cargarColeccionPalabras()
+    //ARRAY $coleccionPalabras **ARREGLO CON LAS PALABRAS A JUGAR**
 {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
@@ -36,6 +37,7 @@ function cargarColeccionPalabras()
 /**
  * 2)
  * Funcion que almacena información de las partidas
+ * @return ARRAY
  */
 function cargarPartidas(){
     $partida = [];
@@ -58,6 +60,7 @@ function cargarPartidas(){
  * @return INT
  */
 function seleccionarOpcion(){
+    //INT $opcion
     echo "Menu de opciones:\n";
     echo "1: Jugar al wordix con una palabra elegida\n";
     echo "2: Jugar al wordix con una palabra aleatoria\n";
@@ -75,10 +78,11 @@ function seleccionarOpcion(){
 
 /** 
  * Funcion que retorna un numero aleatorio
- * @return ARRAY
+ * @param ARRAY $collection **ARREGLO CON PARTIDAS/PALABRAS**
+ * @return ARRAY **INDICE ALEATORIO**
  */
-function numeroAleatorio($palabraCollection){
-    return $palabraCollection[random_int(0, count($palabraCollection))];
+function numeroAleatorio($collection){
+    return $collection[random_int(0, count($collection))];
     //array_rand
 }
 
