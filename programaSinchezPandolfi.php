@@ -27,8 +27,7 @@ function cargarColeccionPalabras()
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
         "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "LAGOS", "POLLO", "AVION", "SOPLA", "BASOS"
-
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
     ];
 
     return ($coleccionPalabras);
@@ -222,6 +221,7 @@ function nombreSort($array)
     for ($i = 0; $i < count($array); $i++) {
         $finalSort[$i] = ['jugador' => $sortingNames[$i], 'palabraWordix' => $sortingWords[$i]];
     }
+    print_r($finalSort);
     return $finalSort;
 }
 
@@ -234,7 +234,7 @@ function retornarPartidasPorNombre($collection, $position)
 {
     //ARRAY $sortedByNames
     $sortedByNames = nombreSort($collection, $position);
-    uasort($sortedByNames, 'cmp');
+    // uasort($sortedByNames, 'cmp');
     print_r($sortedByNames);
 }
 
@@ -275,10 +275,10 @@ function MostraPrimerPartidaGanadora($array, $persona)
  */
 function resumenDelJugador($array, $persona)
 {
-    // ARRAY $nuevaMatriz 
+    // ARRAY $matrizResumen 
     // INT $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
     // BOOLEAN $found     
-    $nuevaMatriz = [];
+    $matrizResumen = [];
     $nroPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
@@ -329,7 +329,7 @@ function resumenDelJugador($array, $persona)
         }
 
         $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
-        $nuevaMatriz[0] = [
+        $matrizResumen[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => $nroPartidas,
             "Puntaje Total" => $puntajeTotal,
@@ -345,7 +345,7 @@ function resumenDelJugador($array, $persona)
     } else {
         $puntajeTotal = 0;
         $porcentajeVictoria = 0;
-        $nuevaMatriz[0] = [
+        $matrizResumen[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => 0,
             "Puntaje Total" => 0,
@@ -359,7 +359,7 @@ function resumenDelJugador($array, $persona)
             "Intento 6" => 0
         ];
     }
-    return $nuevaMatriz;
+    return $matrizResumen;
 }
 
 
@@ -367,16 +367,17 @@ function resumenDelJugador($array, $persona)
  * @param ARRAY $palabras, 
  * @param ARRAY $partidas, 
  * @param ARRAY $jugador
+ * @param ARRAY $collection
  * @return ARRAY
  */
-function elegirPalabra($palabras, $partidas, $jugador)
+function elegirPalabra($palabras, $partidas, $jugador, $collection)
 {
     $cantPalabras = count($palabras);
     $palabraDisponible = false;
 
     do { 
         echo "Ingrese numero entre 1 - $cantPalabras: ";      
-        $numero = trim(fgets(STDIN));
+        $numero = solicitarNumeroEntre(1, count($collection));
         $inidice = $numero - 1;
 
         $palabraAJugar = $palabras[$inidice];          
@@ -481,7 +482,7 @@ do {
         case 1:
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
-            $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
+            $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula, $palabraCollection);                   
             $partidasCollection[$currPosition] = $encontrado;  //almacena todos datos de la partida
             break;
             //Jugar al wordix con una palabra aleatoria
