@@ -29,7 +29,7 @@ function cargarColeccionPalabras()
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
         "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "LAGOS", "POLLO", "AVION", "SOPLA", "BASOS"
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
 
     ];
 
@@ -314,7 +314,7 @@ function resumenDelJugador($array, $persona)
         }
 
         $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
-        $nuevaMatriz[0] = [
+        $resumenMatriz[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => $nroPartidas,
             "Puntaje Total" => $puntajeTotal,
@@ -330,7 +330,7 @@ function resumenDelJugador($array, $persona)
     } else {
         $puntajeTotal = 0;
         $porcentajeVictoria = 0;
-        $nuevaMatriz[0] = [
+        $resumenMatriz[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => 0,
             "Puntaje Total" => 0,
@@ -344,7 +344,7 @@ function resumenDelJugador($array, $persona)
             "Intento 6" => 0
         ];
     }
-    return $nuevaMatriz;
+    return $resumenMatriz;
 }
 
 /**Funcion que verifica si la palabra fue utilizada antes por el jugador y si fue utilizada antes retorna true
@@ -353,14 +353,14 @@ function resumenDelJugador($array, $persona)
  * @param ARRAY $inidice
  * @return bool
  */
-function verificarPalabra($jugador, $partidas, $inidice){
+function verificarPalabra($jugador, $partidas, $palabras, $inidice){
     $palabraAJugar = false;
     $j = 0; 
     $cantidadPartidas = count($partidas);
 
     while ($j < $cantidadPartidas && !$palabraAJugar) { 
         if ($jugador == $partidas[$j]["jugador"]) {
-            if ($inidice == $partidas[$j]["palabraWordix"]) {
+            if ($palabras[$inidice] == $partidas[$j]["palabraWordix"]) {
                 $palabraAJugar = true;
             }
         }
@@ -392,7 +392,7 @@ function elegirPalabra($palabras, $partidas, $jugador)
         $palabraAJugar = $palabras[$inidice];          
         $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $inidice);
         if ($palabraDisponible) {
-            echo $palabraDisponible . " Ups, esa palabra ya fue utilizada! \n";
+            echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
         }
     } while ($palabraDisponible);
 
@@ -547,13 +547,4 @@ do {
     }
     // $partidasCollection[$currPosition] = $partida; 
 } while ($opcion != 8);
-
-/*
- echo "Ingrese numero: ";
-                $numero = trim(fgets(STDIN));
-
-                if (esPalabra($numero)) {
-                    do {
-                        echo "ERROR. No se permiten letras. Por favor ingrese un numero:";
-                        $numero = trim(fgets(STDIN));
-                    } while (esPalabra($numero));*/
+?>
