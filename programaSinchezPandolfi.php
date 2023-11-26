@@ -116,8 +116,14 @@ function numeroDePalabra($array)
  */
 function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
 {
+    if($numeroIndice == 0){
+        do{
+            echo "Ingrese un numero mayor a 0: ";
+            $numeroIndice = trim(fgets(STDIN));
+        }while($numeroIndice <= 0);
+    }
     $nuevoNumeroIndice = $numeroIndice - 1;
-    if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] > 6) {
+    if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) {
         $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] = "No adivino la palabra";
     }
     echo "\n***********************************\n";
