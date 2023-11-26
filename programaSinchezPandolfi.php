@@ -336,16 +336,16 @@ function resumenDelJugador($array, $persona)
 
 function arrayNumeroPalabra(){
     $arrayNumero = [];
-    $arrayNumero[0] = ["numero" => 1, "nombre" =>  "LIAN" ];
-    $arrayNumero[1] = ["numero" => 0, "nombre" =>  "FRAN" ];
-    $arrayNumero[2] = ["numero" => 6, "nombre" =>  "LAUTARO"];
-    $arrayNumero[3] = ["numero" => 12, "nombre" =>  "BEJAMIN"];
-    $arrayNumero[4] = ["numero" => 8, "nombre" =>  "MELINA"];
-    $arrayNumero[5] = ["numero" => 9, "nombre" =>  "CELESTE"];
-    $arrayNumero[6] = ["numero" => 14, "nombre" =>  "FABIO"];
-    $arrayNumero[7] = ["numero" => 11, "nombre" =>  "CLAUDIO"];
-    $arrayNumero[8] = ["numero" => 10, "nombre" =>  "ESTEBAN"];
-    $arrayNumero[9] = ["numero" => 5, "nombre" =>  "RODRIGO"];
+    $arrayNumero[0] = ["numero" => 2, "nombre" =>  "LIAN" ];
+    $arrayNumero[1] = ["numero" => 1, "nombre" =>  "FRAN" ];
+    $arrayNumero[2] = ["numero" => 7, "nombre" =>  "LAUTARO"];
+    $arrayNumero[3] = ["numero" => 13, "nombre" =>  "BEJAMIN"];
+    $arrayNumero[4] = ["numero" => 9, "nombre" =>  "MELINA"];
+    $arrayNumero[5] = ["numero" => 10, "nombre" =>  "CELESTE"];
+    $arrayNumero[6] = ["numero" => 15, "nombre" =>  "FABIO"];
+    $arrayNumero[7] = ["numero" => 12, "nombre" =>  "CLAUDIO"];
+    $arrayNumero[8] = ["numero" => 11, "nombre" =>  "ESTEBAN"];
+    $arrayNumero[9] = ["numero" => 6, "nombre" =>  "RODRIGO"];
     return $arrayNumero;
 }
 
