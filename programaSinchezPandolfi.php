@@ -379,14 +379,14 @@ function verificarPalabra($jugador, $partidas, $inidice){
  * @param ARRAY $coleccionNumeroJugador
  * @return ARRAY
  */
-function elegirPalabra($palabras, $partidas, $jugador, $collection)
+function elegirPalabra($palabras, $partidas, $jugador)
 {
     $cantPalabras = count($palabras);
     $palabraDisponible = false;
 
     do { 
         echo "Ingrese numero entre 1 - $cantPalabras: ";      
-        $numero = solicitarNumeroEntre(1, count($collection));
+        $numero = solicitarNumeroEntre(1, count($palabras));
         $inidice = $numero - 1;
 
         $palabraAJugar = $palabras[$inidice];          
@@ -484,7 +484,7 @@ do {
         case 1:
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
-            $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula, $palabraCollection);                   
+            $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
             $partidasCollection[$currPosition] = $encontrado;  //almacena todos datos de la partida
             break;
             //Jugar al wordix con una palabra aleatoria
