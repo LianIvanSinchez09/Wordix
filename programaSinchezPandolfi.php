@@ -39,16 +39,16 @@ function cargarColeccionPalabras()
  */
 function cargarPartidas(){
     $partida = [];
-    $partida[0] = [ "palabraWordix" => "QUESO", "jugador" =>  "LIAN", "intentos" => 2, "puntaje" =>  5];
-    $partida[1] = [ "palabraWordix" => "MUJER", "jugador" =>  "FRAN", "intentos" => 1, "puntaje" =>  6];
-    $partida[2] = [ "palabraWordix" => "GOTAS", "jugador" =>  "LAUTARO", "intentos" => 3, "puntaje" =>  4];
-    $partida[3] = [ "palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  3];
-    $partida[4] = [ "palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  2];
-    $partida[5] = [ "palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 7, "puntaje" =>  0];
-    $partida[6] = [ "palabraWordix" => "PISOS", "jugador" =>  "FABIO", "intentos" => 1, "puntaje" =>  6];
-    $partida[7] = [ "palabraWordix" => "MELON", "jugador" =>  "CLAUDIO", "intentos" => 3, "puntaje" =>  4];
-    $partida[8] = [ "palabraWordix" => "VERDE", "jugador" =>  "ESTEBAN", "intentos" => 2, "puntaje" =>  5];
-    $partida[9] = [ "palabraWordix" => "GATOS", "jugador" =>  "RODRIGO", "intentos" => 1, "puntaje" =>  6];
+    $partida[0] = [ "palabraWordix" => "QUESO", "jugador" =>  "LIAN", "intentos" => 2, "puntaje" =>  21];
+    $partida[1] = [ "palabraWordix" => "MUJER", "jugador" =>  "FRAN", "intentos" => 1, "puntaje" =>  16];
+    $partida[2] = [ "palabraWordix" => "GOTAS", "jugador" =>  "LAUTARO", "intentos" => 3, "puntaje" =>  23];
+    $partida[3] = [ "palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  22];
+    $partida[4] = [ "palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  21];
+    $partida[5] = [ "palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 0, "puntaje" =>  0];
+    $partida[6] = [ "palabraWordix" => "PISOS", "jugador" =>  "FABIO", "intentos" => 1, "puntaje" =>  25];
+    $partida[7] = [ "palabraWordix" => "MELON", "jugador" =>  "CLAUDIO", "intentos" => 3, "puntaje" =>  14];
+    $partida[8] = [ "palabraWordix" => "VERDE", "jugador" =>  "ESTEBAN", "intentos" => 2, "puntaje" =>  24];
+    $partida[9] = [ "palabraWordix" => "GATOS", "jugador" =>  "RODRIGO", "intentos" => 1, "puntaje" =>  25];
     return $partida; 
 }
 
@@ -270,15 +270,15 @@ function resumenDelJugador($array, $persona)
     }
     if($found){
         for($i = 0; $i < count($array); $i++){
-            if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] < 7){
+            if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] > 0){
                 $victorias = $victorias + 1; 
-                $nroPartidas = $nroPartidas + 1;  
+                $nroPartidas = $nroPartidas + 1; 
+                $puntajeTotal = $puntajeTotal + $array[$i]["puntaje"];
             }
-    
-            if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] > 6){
+
+            if($array[$i]["jugador"] === $persona && $array[$i]["intentos"] < 1){
                 $nroPartidas = $nroPartidas + 1;
             }
-    
             if($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 1){
                 $int1 = $int1 + 1;
             } 
@@ -298,7 +298,7 @@ function resumenDelJugador($array, $persona)
                 $int6 = $int6 + 1;
             } 
         }
-        $puntajeTotal = $puntajeTotal + $int1 * 6 + $int2 * 5 + $int3 * 4 + $int4 * 3 + $int5 * 2 + $int6 * 1;
+
         $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
         $nuevaMatriz[0] = [
             "Jugador" => strtolower($persona), 
