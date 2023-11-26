@@ -207,7 +207,7 @@ function cmp($a, $b)
  * @param INT $position
  * @return ARRAY
  */
-function nombreSort($array, $position)
+function nombreSort($array)
 {
     //ARRAY $sortingNames, $sortingWords, $finalSort
     $sortingNames = [];
@@ -364,9 +364,9 @@ function resumenDelJugador($array, $persona)
 
 
 /** Permite al usuario dejar jugar al Wordix con la palabra elegida y almacena la partida
- * @param ARRAY $arrayColeccionPalabras, 
- * @param ARRAY $coleccionCargarPartidas, 
- * @param ARRAY $coleccionNumeroJugador
+ * @param ARRAY $palabras, 
+ * @param ARRAY $partidas, 
+ * @param ARRAY $jugador
  * @return ARRAY
  */
 function elegirPalabra($palabras, $partidas, $jugador)
@@ -391,7 +391,13 @@ function elegirPalabra($palabras, $partidas, $jugador)
     return $partida;
 }
 
-function verificarPalabra($jugador, $partidas, $palabras, $inidice){
+/**Funcion que verifica si la palabra fue utilizada antes por el jugador y si fue utilizada antes retorna true
+ * @param STRING $jugador
+ * @param ARRAY $partidas
+ * @param ARRAY $inidice
+ * @return bool
+ */
+function verificarPalabra($jugador, $partidas, $inidice){
     $palabraAJugar = false;
     $j = 0; 
     $cantidadPartidas = count($partidas);
@@ -408,6 +414,12 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
     return $palabraAJugar;
 }
 
+/**Funcion palabraAleatoria permite al jugador jugar con una palabra aleatoria, toma un numero aleatorio y chequea si la palabra fue utilizada antes en Wordix por el jugador y si fue utilizada la reemplaza por otra.
+ * @param ARRAY $palabras
+ * @param ARRAY $partidas
+ * @param STRING $jugador
+ * @return ARRAY
+ */
 function palabraAleatoria($palabras, $partidas, $jugador){
     do {    
         $numeroAlt = numeroAleatorio($palabras);       
