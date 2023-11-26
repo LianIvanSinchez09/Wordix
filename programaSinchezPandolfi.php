@@ -116,17 +116,16 @@ function numeroRangoValores(){
  * y se muestra en pantalla
  * @param INT $parametro
  */
-function mostrarUnaPartida($numeroIndice){  
+function mostrarUnaPartida($numeroIndice, $arraycargarpartidas){  
     $nuevoNumeroIndice = $numeroIndice - 1;          
-    $array = cargarPartidas();
-    if($array[$nuevoNumeroIndice]["intentos"] > 6){
-        $array[$nuevoNumeroIndice]["intentos"] = "No adivino la palabra";
+    if($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] > 6){
+        $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] = "No adivino la palabra";
     }
         echo "\n***********************************\n";
-        echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $array[$nuevoNumeroIndice]["palabraWordix"] . "\n";
-        echo "Jugador: " . $array[$nuevoNumeroIndice]["jugador"] . "\n";
-        echo "Puntaje: " . $array[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
-        echo "Intentos: " . $array[$nuevoNumeroIndice]["intentos"] . "\n";
+        echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
+        echo "Jugador: " . $arraycargarpartidas[$nuevoNumeroIndice]["jugador"] . "\n";
+        echo "Puntaje: " . $arraycargarpartidas[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
+        echo "Intentos: " . $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] . "\n";
         echo "***********************************\n\n";
 }
 
@@ -457,7 +456,7 @@ do {
                 echo "Ingrese un numero valido: ";
                 $numeroDePartida = trim(fgets(STDIN));
             }
-            mostrarUnaPartida($numeroDePartida);
+            mostrarUnaPartida($numeroDePartida, $partidasCollection);
             break;
         //Mostrar la primer partida ganadora
         case 4: 
@@ -465,7 +464,7 @@ do {
             $jugadorGanador = trim(fgets(STDIN));
             $indice = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador));
             if($indice > 0){
-                mostrarUnaPartida($indice);
+                mostrarUnaPartida($indice, $partidasCollection);
             } 
             else{
                 echo "\nEl jugador " . $jugadorGanador . " no ganó ninguna partida" . "\n\n";
