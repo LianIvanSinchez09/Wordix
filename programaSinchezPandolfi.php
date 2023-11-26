@@ -144,7 +144,7 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas){
  */
  function agregarPalabra($col, $pal){
     $col[count($col)] = $pal;
-    print_r($col);
+    print_r($pal);
     return $col;
 }
 
@@ -262,21 +262,21 @@ function MostraPrimerPartidaGanadora($array, $persona)
  * @return ARRAY
  */
 function resumenDelJugador($array, $persona){
-    // Array $nuevaMatriz 
-    // Entero $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
+    // ARRAY $nuevaMatriz 
+    // INT $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
     // BOOLEAN $found     
     $nuevaMatriz = []; 
     $nroPartidas = 0;   
     $puntajeTotal = 0;  
-    $victorias = 0;     // Entero
-    $int1 = 0;          // Entero
-    $int2 = 0;          // Entero
-    $int3 = 0;          // Entero
-    $int4 = 0;          // Entero
-    $int5 = 0;          // Entero
-    $int6 = 0;          // Entero
-    $found = false;     // Booleano
-    $k = 0;             // Entero
+    $victorias = 0;    
+    $int1 = 0;          
+    $int2 = 0;          
+    $int3 = 0;          
+    $int4 = 0;          
+    $int5 = 0;          
+    $int6 = 0;          
+    $found = false;     
+    $k = 0;             
 
     while($k < count($array) && !$found){
         if($array[$k]["jugador"] == $persona){
@@ -454,13 +454,12 @@ function elegirPalabra($arrayColeccionPalabras, $coleccionCargarPartidas, $colec
  * STRING $palabra
  * BOOLEAN $encontrado
  */
-$palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $numerosDePartida = arrayNumeroPalabra();
+$palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $encontrado = false;
 $a = 0;
 $currPosition = count($partidasCollection);
-echo count($palabraCollection);
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
@@ -520,7 +519,8 @@ do {
         //Agregar una palabra de 5 letras a Wordix
         case 7: 
             $palabra = leerPalabra5Letras();
-            agregarPalabra($palabraCollection, $palabra);
+            $collectionMod = agregarPalabra($palabraCollection, $palabra);
+            $palabraCollection = $collectionMod;
             // print_r($palabraCollection);
             break;
         default; break;
