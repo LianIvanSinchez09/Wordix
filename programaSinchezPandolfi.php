@@ -76,7 +76,7 @@ function seleccionarOpcion()
     echo "8: Salir\n";
     echo "Ingrese una opcion:\n";
     // la funcion numeroRangoValores(max, min) agregar parametros sino utilizar en wordix pero sabien que hace a la hora de presentarlo
-    $opcionMenu = numeroRangoValores();
+    $opcionMenu = solicitarNumeroEntre(1, 8);
     return $opcionMenu;
 }
 
@@ -104,24 +104,6 @@ function numeroDePalabra($array)
     echo "Ingrese un numero de palabra para jugar: ";
     $index = trim(fgets(STDIN));
     return $array[$index];;
-}
-
-/**
- * 5)
- * Funcion que solicita al usuario un número entre un rango de valores
- * Si el número ingresado por el usuario no es válido, 
- * la función se encarga de volver a pedirlo. 
- * La función retorna un número válido.
- * @return INT
- */
-function numeroRangoValores()
-{
-    $rango = trim(fgets(STDIN));
-    while (!($rango >= 1 && $rango <= 8)) {
-        echo "Opcion Invalido.\nIngrese un numero del menu: ";
-        $rango = trim(fgets(STDIN));
-    }
-    return $rango;
 }
 
 /**
