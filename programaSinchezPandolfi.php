@@ -27,7 +27,7 @@ function cargarColeccionPalabras()
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
         "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "LAGOS", "POLLO", "AVION", "SOPLA", "BASOS"
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
 
     ];
 
@@ -218,10 +218,14 @@ function nombreSort($array)
         $sortingNames[$i] = $array[$i]['jugador'];
         $sortingWords[$i] = $array[$i]['palabraWordix'];
     }
+    print($sortingNames);
 
     for ($i = 0; $i < count($array); $i++) {
         $finalSort[$i] = ['jugador' => $sortingNames[$i], 'palabraWordix' => $sortingWords[$i]];
     }
+
+        
+    print($finalSort);
     return $finalSort;
 }
 
@@ -275,10 +279,10 @@ function MostraPrimerPartidaGanadora($array, $persona)
  */
 function resumenDelJugador($array, $persona)
 {
-    // ARRAY $nuevaMatriz 
+    // ARRAY $matrizResumen 
     // INT $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
     // BOOLEAN $found     
-    $nuevaMatriz = [];
+    $matrizResumen = [];
     $nroPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
@@ -329,7 +333,7 @@ function resumenDelJugador($array, $persona)
         }
 
         $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
-        $nuevaMatriz[0] = [
+        $matrizResumen[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => $nroPartidas,
             "Puntaje Total" => $puntajeTotal,
@@ -345,7 +349,7 @@ function resumenDelJugador($array, $persona)
     } else {
         $puntajeTotal = 0;
         $porcentajeVictoria = 0;
-        $nuevaMatriz[0] = [
+        $matrizResumen[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => 0,
             "Puntaje Total" => 0,
@@ -359,7 +363,7 @@ function resumenDelJugador($array, $persona)
             "Intento 6" => 0
         ];
     }
-    return $nuevaMatriz;
+    return $matrizResumen;
 }
 
 
