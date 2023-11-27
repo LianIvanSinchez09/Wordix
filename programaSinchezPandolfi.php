@@ -232,7 +232,7 @@ function retornarPartidasPorNombre($collection)
 }
 
 /**
- * 8)
+ * 3.8)
  * funcion que dada una colección de partidas y el nombre de un jugador, 
  * retorna el índice de la primer partida ganada por dicho jugador
  * @param ARRAY $array
@@ -259,7 +259,7 @@ function MostraPrimerPartidaGanadora($array, $persona)
 
 
 /**
- * 9)
+ * 3.9)
  * funcion que dada la colección de partidas y el 
  * nombre de un jugador, retorne el resumen del jugador
  * @param ARRAY $array
@@ -354,7 +354,9 @@ function resumenDelJugador($array, $persona)
     return $resumenMatriz;
 }
 
-/**Funcion que verifica si la palabra fue utilizada antes por el jugador y si fue utilizada antes retorna true
+/**
+ * Funcion que verifica si la palabra fue utilizada 
+ * antes por el jugador y si fue utilizada antes retorna true
  * @param STRING $jugador
  * @param ARRAY $partidas
  * @param ARRAY $inidice
@@ -409,7 +411,10 @@ function elegirPalabra($palabras, $partidas, $jugador)
     return $partida;
 }
 
-/**Funcion palabraAleatoria permite al jugador jugar con una palabra aleatoria, toma un numero aleatorio y chequea si la palabra fue utilizada antes en Wordix por el jugador y si fue utilizada la reemplaza por otra.
+/**
+ * Funcion palabraAleatoria permite al jugador jugar con una palabra aleatoria, 
+ * toma un numero aleatorio y chequea si la palabra fue utilizada antes en 
+ * Wordix por el jugador y si fue utilizada la reemplaza por otra.
  * @param ARRAY $palabras
  * @param ARRAY $partidas
  * @param STRING $jugador
@@ -436,11 +441,16 @@ function palabraAleatoria($palabras, $partidas, $jugador){
     return $partida;
 }
 
-/**Funcion verificarPalabraAleatoria verifica si la palabra elegida aleatoriamente no fue usada antes, retorna true si fue utilizada y false si no. 
+/**
+ * Funcion verificarPalabraAleatoria verifica si la palabra elegida 
+ * aleatoriamente no fue usada antes, retorna true si fue utilizada 
+ * y false si no. 
  * @param STRING $jugador
  * @param ARRAY $partidas
  * @param ARRAY $inidice
  * @return BOOLEAN
+ */
+/**
  */
 function verificarPalabraAleatoria($jugador, $partidas, $inidice){
     $palabraAJugar = false;
@@ -455,8 +465,6 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
         }
         $j++; // conteo que se incrementa en cada bucle
     }
-
-
     return $palabraAJugar;
 }
 
@@ -481,7 +489,8 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 
 //Proceso:
 /**
- * Algoritmo Principal, se le muestra un menu al usuario con opciones para jugar al Wordix, mostrar estadisticas, etc.
+ * Algoritmo Principal, se le muestra un menu al usuario con opciones 
+ * para jugar al Wordix, mostrar estadisticas, etc.
  * ARRAY $palabraCollection
  * ARRAY $partidasCollection
  * INT $opcion
@@ -520,8 +529,8 @@ do {
             break;
             //Mostrar una partida
         case 3:
-            echo "Ingrese un numero de partida: ";
-            $numeroDePartida = trim(fgets(STDIN));
+            echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
+            $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));
             while (($numeroDePartida > count($partidasCollection) || $numeroDePartida < 0)) {
                 echo "Numero invalido\n";
                 echo "Ingrese un numero valido: ";

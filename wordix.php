@@ -29,7 +29,13 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ * funcion que calcula un rango entre minimo y maximo de un grupo de numeros.
+ * Si el numero no esta en el rango, se volvera a pedir al usario que ingrese
+ * un numero entre los rango.
+ * si un srtring en un numero.
+ * @param INT $min
+ * @param INT $max
+ * @return INT
  */
 function solicitarNumeroEntre($min, $max)
 {
@@ -122,7 +128,6 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * COMPLETAR LISTO)
  * Funcion que imprime por pantalla el inicio del juego Wordix 
  */
 function escribirMensajeBienvenida($usuario)
@@ -136,8 +141,6 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * revisar
- * COMPLETAR LISTO)
  * Funcion que retorna si la palabra ingresada como parametro
  * es de tipo texto y tiene cinco letras o falso caso contrario
  * @return BOOLEAN
@@ -157,7 +160,6 @@ function esPalabra($cadena)
 }
 
 /**
- * COMPLETAR LISTO)
  * Funcion que solicita al usuario que ingrese una palabra de 5 letras
  * y determina si es verdadero que tenga 5 letras, caso contrario, debe reingresar una 
  * palabra de 5 letras de forma alfabetica.
@@ -179,8 +181,9 @@ function leerPalabra5Letras()
 
 
 /**
- * Inicia una estructura de datos Teclado. La estructura es de tipo: ¿Indexado, asociativo o Multidimensional?
- *@return array
+ * Inicia una estructura de datos Teclado. La estructura es de tipo: 
+ * ¿Indexado, asociativo o Multidimensional?
+ * @return array
  */
 function iniciarTeclado()
 {
@@ -197,7 +200,8 @@ function iniciarTeclado()
 }
 
 /**
- * Escribe en pantalla el estado del teclado. Acomoda las letras en el orden del teclado QWERTY
+ * Escribe en pantalla el estado del teclado. 
+ * Acomoda las letras en el orden del teclado QWERTY
  * @param array $teclado
  */
 function escribirTeclado($teclado)
