@@ -75,7 +75,6 @@ function seleccionarOpcion()
     echo "7: Agregar una palabra de 5 letras a Wordix\n";
     echo "8: Salir\n";
     echo "Ingrese una opcion:\n";
-    // la funcion numeroRangoValores(max, min) agregar parametros sino utilizar en wordix pero sabien que hace a la hora de presentarlo
     $opcionMenu = solicitarNumeroEntre(1, 8);
     return $opcionMenu;
 }
@@ -152,7 +151,7 @@ function agregarPalabra($col, $pal)
 }
 
 /** 10)
- *  Retorna el nombre de un jugador en minusculas
+ *  Retorna el nombre de un jugador en minusculas y verifica si es string. Retorna el nombre modificado en minuscula.
  *  @return STRING
  */
 function solicitarJugador()
@@ -224,7 +223,7 @@ function nombreSort($array)
  * de partidas ordenada por nombre de jugador elegido y palabra
  * @param ARRAY $collection
  */
-function retornarPartidasPorNombre($collection, $position)
+function retornarPartidasPorNombre($collection)
 {
     //ARRAY $sortedByNames
     $sortedByNames = nombreSort($collection);
@@ -359,7 +358,7 @@ function resumenDelJugador($array, $persona)
  * @param STRING $jugador
  * @param ARRAY $partidas
  * @param ARRAY $inidice
- * @p
+ * @param ARRAY $palabras
  * @return bool
  */
 function verificarPalabra($jugador, $partidas, $palabras, $inidice){
@@ -383,9 +382,9 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
 
 
 /** Permite al usuario dejar jugar al Wordix con la palabra elegida y almacena la partida
- * @param ARRAY $arrayColeccionPalabras, 
- * @param ARRAY $coleccionCargarPartidas, 
- * @param ARRAY $coleccionNumeroJugador
+ * @param ARRAY $palabras, 
+ * @param ARRAY $partidas, 
+ * @param ARRAY $jugador
  * @return ARRAY
  */
 function elegirPalabra($palabras, $partidas, $jugador)
@@ -410,19 +409,6 @@ function elegirPalabra($palabras, $partidas, $jugador)
     return $partida;
 }
 
-/**Verifica si un elemento es boolean, retorna true si lo es caso contrario false
- * @param BOOLEAN $elemento
- * @return BOOLEAN
- */
-function esBool($elemento){
-    $elementoComprobado = false;
-    if($elemento || !$elemento){
-        $elementoComprobado = true;
-    }
-    return $elementoComprobado;
-}
-
-
 /**Funcion palabraAleatoria permite al jugador jugar con una palabra aleatoria, toma un numero aleatorio y chequea si la palabra fue utilizada antes en Wordix por el jugador y si fue utilizada la reemplaza por otra.
  * @param ARRAY $palabras
  * @param ARRAY $partidas
@@ -435,7 +421,7 @@ function palabraAleatoria($palabras, $partidas, $jugador){
         $numeroAlt = numeroAleatorio($palabras);       
         echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
             
-        $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt, $palabras);
+        $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
         if ($palabraDisponible) {
             echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
         }
@@ -450,11 +436,16 @@ function palabraAleatoria($palabras, $partidas, $jugador){
     return $partida;
 }
 
-function verificarPalabraAleatoria($jugador, $partidas, $inidice, $palabras){
+/**Funcion verificarPalabraAleatoria verifica si la palabra elegida aleatoriamente no fue usada antes, retorna true si fue utilizada y false si no. 
+ * @param STRING $jugador
+ * @param ARRAY $partidas
+ * @param ARRAY $inidice
+ * @return BOOLEAN
+ */
+function verificarPalabraAleatoria($jugador, $partidas, $inidice){
     $palabraAJugar = false;
     $j = 0; 
     $cantidadPartidas = count($partidas);
-    $cantPalabras = count($palabras);
 
     while (($j < $cantidadPartidas && !$palabraAJugar)) { 
         if ($jugador == $partidas[$j]["jugador"]) {
