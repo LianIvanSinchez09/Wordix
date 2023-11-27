@@ -115,13 +115,6 @@ function numeroDePalabra($array)
  */
 function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
 {
-    //si el numindice es igual a 0 el programa pedira un numero mayor
-    if($numeroIndice == 0){
-        do{
-            echo "Ingrese un numero mayor a 0: ";
-            $numeroIndice = trim(fgets(STDIN));
-        }while($numeroIndice <= 0);
-    }
     //se obtiene el indice con correlacion al numero que eligio el usuario
     $nuevoNumeroIndice = $numeroIndice - 1;
     //se menciona si el jugador elegido no adivino ninguna palabra 
@@ -391,18 +384,17 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
  */
 function elegirPalabra($palabras, $partidas, $jugador)
 {
-    $cantPalabras = count($palabras);
     $palabraDisponible = false;
 
     do { 
-        echo "Ingrese numero entre 1 - $cantPalabras: ";      
+        echo "Ingrese numero entre 1 - " . count($palabras) . " : ";      
         $numero = solicitarNumeroEntre(1, count($palabras));
         $inidice = $numero - 1;
 
         $palabraAJugar = $palabras[$inidice];          
         $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $inidice);
         if ($palabraDisponible) {
-            echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
+            echo " Ups, esta palabra ya fue utilizada! \n";
         }
     } while ($palabraDisponible);
 
@@ -428,7 +420,7 @@ function palabraAleatoria($palabras, $partidas, $jugador){
             
         $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
         if ($palabraDisponible) {
-            echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
+            echo " Ups, esta palabra ya fue utilizada! \n";
         }
         $count++;
     } while ($palabraDisponible && $count < count($palabras));
@@ -518,6 +510,7 @@ do {
             $nombreMayuscula = strtoupper($nombre);
             $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
             $partidasCollection[$currPosition] = $encontrado;  //almacena todos datos de la partida
+            $currPosition++;
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
@@ -531,11 +524,6 @@ do {
         case 3:
             echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
             $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));
-            while (($numeroDePartida > count($partidasCollection) || $numeroDePartida < 0)) {
-                echo "Numero invalido\n";
-                echo "Ingrese un numero valido: ";
-                $numeroDePartida = trim(fgets(STDIN));
-            }
             mostrarUnaPartida($numeroDePartida, $partidasCollection);
             break;
             //Mostrar la primer partida ganadora
