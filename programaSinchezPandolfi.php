@@ -492,6 +492,7 @@ do {
             $nombreMayuscula = strtoupper($nombre);
             $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
             $partidasCollection[$currPosition] = $encontrado;  //almacena todos datos de la partida
+            $currPosition++;
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
