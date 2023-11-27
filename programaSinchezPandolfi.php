@@ -477,7 +477,7 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
  * INT $indice
  * ARRAY $jugadorResumen
  * ARRAY $listado
- * STRING $palabra
+ * STRING $palabrac
  * BOOLEAN $encontrado
  */
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
@@ -492,7 +492,6 @@ do {
             $nombreMayuscula = strtoupper($nombre);
             $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
             $partidasCollection[$currPosition] = $encontrado;  //almacena todos datos de la partida
-            $currPosition++;
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
@@ -517,6 +516,14 @@ do {
         case 4:
             echo "Ingrese nombre de jugador: ";
             $jugadorGanador = trim(fgets(STDIN));
+            $comprobante = esPalabra($jugadorGanador);
+            if(!$comprobante){
+                do{
+                    echo "No se permiten numeros, ingrese un nombre: ";
+                    $jugadorGanador = trim(fgets(STDIN));
+                    $comprobante = esPalabra($jugadorGanador);
+                }while(!$comprobante);
+            }
             $indice = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador));
             if ($indice > 0) {
                 mostrarUnaPartida($indice, $partidasCollection);
@@ -529,6 +536,14 @@ do {
         case 5:
             echo "Ingrese jugador: ";
             $jugadorGanador = trim(fgets(STDIN));
+            $comprobante = esPalabra($jugadorGanador);
+            if(!$comprobante){
+                do{
+                    echo "No se permiten numeros, ingrese un nombre: ";
+                    $jugadorGanador = trim(fgets(STDIN));
+                    $comprobante = esPalabra($jugadorGanador);
+                }while(!$comprobante);
+            }
             $jugadorResumen = resumenDelJugador($partidasCollection, strtoupper($jugadorGanador));
             for ($i = 0; $i < count($jugadorResumen); $i++) {
                 echo "\n***********************************\n";
