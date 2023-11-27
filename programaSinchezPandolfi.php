@@ -17,7 +17,7 @@ include_once("wordix.php");
 /**************************************/
 
 /**
- * 1)
+ * 3.1)
  * Funcion qur obtiene una estructura de datos
  * con ejemplos palabras de 5 letras.
  * @return ARRAY
@@ -37,7 +37,7 @@ function cargarColeccionPalabras()
 }
 
 /**
- * 2)
+ * 3.2)
  * Funcion que almacena la coleccion de partidas
  * @return ARRAY
  */
@@ -57,7 +57,7 @@ function cargarPartidas()
     return $partida;
 }
 /**
- * 3)
+ * 3.3)
  * Funcion que muestra por pantalla un Menu 
  * de Partidas y solicita al usuario una opcion valida
  * @return INT
@@ -107,7 +107,7 @@ function numeroDePalabra($array)
 }
 
 /**
- * 6)
+ * 3.6)
  * Funcion que tiene un parametro. 
  * Le solicita al usuario un número de partida 
  * y se muestra en pantalla
@@ -135,7 +135,7 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
 }
 
 /**
- * 7)
+ * 3.7)
  * Funcion agregarPalabra añade una palabra y la agrega al final del array
  * @param ARRAY $col **COLECCION DE PALABRAS**
  * @param STRING $pal **PALABRA A AÑADIR**
@@ -147,7 +147,7 @@ function agregarPalabra($col, $pal)
     return $col;
 }
 
-/** 10)
+/** 3.10)
  *  Retorna el nombre de un jugador en minusculas
  *  @return STRING
  */
@@ -198,7 +198,7 @@ function cmp($a, $b)
  * @param INT $position
  * @return ARRAY
  */
-function nombreSort($array, $position)
+function nombreSort($array)
 {
     //ARRAY $sortingNames, $sortingWords, $finalSort
     $sortingNames = [];
@@ -504,8 +504,8 @@ do {
             break;
             //Mostrar una partida
         case 3:
-            echo "Ingrese un numero de partida: ";
-            $numeroDePartida = trim(fgets(STDIN));
+            echo "Ingrese un numero de partida entre 1 y " . count($partidasCollection) . ": ";
+            $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));;
             while (($numeroDePartida > count($partidasCollection) || $numeroDePartida < 0)) {
                 echo "Numero invalido\n";
                 echo "Ingrese un numero valido: ";
