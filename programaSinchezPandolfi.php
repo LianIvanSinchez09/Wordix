@@ -491,8 +491,11 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
  * INT $indice
  * ARRAY $jugadorResumen
  * ARRAY $listado
- * STRING $palabrac
+ * ARRAY $collectionMod
  * BOOLEAN $encontrado
+ * BOOLEAN $comprobante
+ * ARRAY $partidaAleatoria
+ * INT $currPosition
  */
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
