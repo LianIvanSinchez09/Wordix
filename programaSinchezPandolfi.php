@@ -558,7 +558,6 @@ do {
             }
             break;
             //Mostrar resumen de Jugador
-            //Hay error en el puntaje final
         case 5:
             echo "Ingrese jugador: ";
             $jugadorGanador = trim(fgets(STDIN));
