@@ -141,8 +141,9 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * Funcion que retorna true si la palabra ingresada como parametro
- * es de tipo texto, retorna falso caso contrario
+ * Funcion que verifica si la palabra ingresada como parametro
+ * es de tipo texto y tambien analiza si cada caracter es alfabetico. 
+ * Retorna true si es verdadero o falso caso contrario.
  * @return BOOLEAN
  */
 function esPalabra($cadena)
@@ -350,52 +351,38 @@ function esIntentoGanado($estructuraPalabraIntento)
  * con un rango de numeros del 1 a 6 determina el puntaje de los
  * intentos del juego wordix
  * @param INT $intentos
+ * @param STRING $palabraElegida
  * @return INT
  */
 function obtenerPuntajeWordix($intentos, $palabraElegida)
 {
+    //INT $i, $sumaVocales, $antesM, $postM, $vocales, $consonantes
 
-    $a = 0;
-    $vocalesAntesM = 0;
-    $vocalesPostM = 0;
-    $consonantesAntesM = 0;
-    $consonantesPostM = 0;
-    $indiceM = 0;
-    $palabraEncontrar = false;
-    $palabraAntesM = "";
-    $palabraPostM = "";
+    $i = 0;
+    $sumaVocales = 0;
+    $antesM = 0;
+    $postM = 0;
+    
+        //Puntaje de consonantes a traves del abecedario
+        while ($i < strlen($palabraElegida)){
 
-        //puntaje adicional de palabras
-        while ($a < strlen($palabraElegida) && $palabraEncontrar == false) {
-            $palabraAntesM = $palabraAntesM . $palabraElegida[$a];
-            if ($palabraElegida[$a] == "M") {
-                $palabraEncontrar = true;
-                $indiceM = $indiceM + ($a + 1);
+            if($palabraElegida[$i] == "A" || $palabraElegida[$i] == "E" || $palabraElegida[$i] == "I" || $palabraElegida[$i] == "O" || $palabraElegida[$i] == "U"){
+                $sumaVocales = $sumaVocales + 1;
+            }
+            
+            if ($palabraElegida[$i] == "B" || $palabraElegida[$i] == "C" || $palabraElegida[$i] == "D" || $palabraElegida[$i] == "F" || $palabraElegida[$i] == "G" || $palabraElegida[$i] == "H" || $palabraElegida[$i] == "J" || $palabraElegida[$i] == "K" || $palabraElegida[$i] == "L" || $palabraElegida[$i] == "M") {
+                $antesM = $antesM + 2;
+            }
+
+            if ($palabraElegida[$i] == "N" || $palabraElegida[$i] == "P" || $palabraElegida[$i] == "Q" || $palabraElegida[$i] == "R" || $palabraElegida[$i] == "S" || $palabraElegida[$i] == "T" || $palabraElegida[$i] == "V" || $palabraElegida[$i] == "W" || $palabraElegida[$i] == "X" || $palabraElegida[$i] == "Y" || $palabraElegida[$i] == "Z") {
+                $postM = $postM + 3;
             }
         
-            if ($palabraElegida[$a] == "A" || $palabraElegida[$a] == "E" || $palabraElegida[$a] == "I" || $palabraElegida[$a] == "O" || $palabraElegida[$a] == "U") {
-                $vocalesAntesM = $vocalesAntesM + 1;
-            } else {
-                $consonantesAntesM = $consonantesAntesM + 2;
-            }
-        
-            $a++;
+            $i++;
         }
     
-        while ($indiceM < strlen($palabraElegida)) {
-            $palabraPostM = $palabraPostM . $palabraElegida[$indiceM];
-        
-            if ($palabraElegida[$indiceM] == "A" || $palabraElegida[$indiceM] == "E" || $palabraElegida[$indiceM] == "I" || $palabraElegida[$indiceM] == "O" || $palabraElegida[$indiceM] == "U") {
-                $vocalesPostM = $vocalesPostM + 1;
-            } else {
-                $consonantesPostM = $consonantesPostM + 3;
-            }
-        
-            $indiceM++;
-        }
-    
-        $vocales = $vocalesAntesM + $vocalesPostM;
-        $consonates = $consonantesAntesM + $consonantesPostM;
+        $vocales = $sumaVocales;
+        $consonates = $antesM + $postM;
 
     //puntaje de nroIntentos
     switch($intentos){
@@ -455,7 +442,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     } else {
         $nroIntento = 0; //reset intento
         $puntaje = 0;
-        echo "Seguí Jugando Wordix, la próxima será! ";
+        echo "Seguí Jugando Wordix, la próxima será!\n";
     }
 
     $partida = [
