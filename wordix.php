@@ -141,8 +141,8 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * Funcion que retorna si la palabra ingresada como parametro
- * es de tipo texto y tiene cinco letras o falso caso contrario
+ * Funcion que retorna true si la palabra ingresada como parametro
+ * es de tipo texto, retorna falso caso contrario
  * @return BOOLEAN
  */
 function esPalabra($cadena)
