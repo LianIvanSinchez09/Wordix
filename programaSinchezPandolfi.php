@@ -163,61 +163,18 @@ function solicitarJugador()
     return $aMinuscula;
 }
 
-/**
- * Compara 2 valores, si son iguales retorna 0, da un numero 
- * negativo si a es menor que b caso contrario da 1
- * @param INT $a
- * @param INT $b
+/**Funcion compararPorNombre compara con cmp 2 elementos de un array (de partidas en este caso) y devuelve -1 si $colUno < $colDos, 0 si $colUno === $colDos y 1 si $colUno > $colDos
+ * @param ARRAY $colUno
+ * @param ARRAY $colDos
  * @return INT
  */
-function cmp($a, $b)
-{
-    //INT $orden
-    if ($a == $b) {
-        $orden = 0;
-    } elseif ($a < $b) {
-        $orden = -1;
-    } else {
-        $orden = 1;
+function compararPorNombre($colUno, $colDos){
+    $result = strcmp($colUno["jugador"], $colDos["jugador"]);
+    //IMPORTANTE: si los nombres son iguales o empiezan con la misma letra, se comparara por palabra para mantener consistencia
+    if ($result === 0) {
+        $result = strcmp($colUno["palabraWordix"], $colDos["palabraWordix"]);
     }
-    return $orden;
-}
-
-/**
- * Separa los valores de una colección de partidas entre nombre y 
- * palabra correspondiente y los posiciona dentro de un nuevo array
- * @param ARRAY $array
- * @return ARRAY
- */
-function nombreSort($array)
-{
-    //ARRAY $sortingNames, $sortingWords, $finalSort
-    $sortingNames = [];
-    $sortingWords = [];
-    $finalSort = [];
-
-    for ($i = 0; $i < count($array); $i++) {
-        $sortingNames[$i] = $array[$i]['jugador'];
-        $sortingWords[$i] = $array[$i]['palabraWordix'];
-    }
-
-    for ($i = 0; $i < count($array); $i++) {
-        $finalSort[$i] = ['jugador' => $sortingNames[$i], 'palabraWordix' => $sortingWords[$i]];
-    }
-    return $finalSort;
-}
-
-/**
- * Dada una coleccion de palabras, muestra la collection 
- * de partidas ordenada por nombre de jugador elegido y palabra
- * @param ARRAY $collection
- */
-function retornarPartidasPorNombre($collection)
-{
-    //ARRAY $sortedByNames
-    $sortedByNames = nombreSort($collection);
-    uasort($sortedByNames, 'cmp');
-    print_r($sortedByNames);
+    return $result;
 }
 
 /**
@@ -562,7 +519,13 @@ do {
             break;
             //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6:
-            $listado = retornarPartidasPorNombre($partidasCollection, $currPosition);
+            //se arma el array con los nombres y palabras
+            for ($i = 0; $i < count($partidasCollection); $i++) {
+                $finalSort[$i] = ['jugador' => $partidasCollection[$i]['jugador'], 'palabraWordix' => $partidasCollection[$i]['palabraWordix']];
+            }
+            //se ordena la lista
+            uasort($finalSort, "compararPorNombre");
+            print_r($finalSort);
             break;
             //Agregar una palabra de 5 letras a Wordix
         case 7:
