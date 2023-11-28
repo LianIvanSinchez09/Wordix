@@ -411,17 +411,13 @@ function palabraAleatoria($palabras, $partidas, $jugador){
         echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
             
         $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
-        if ($palabraDisponible) {
-            echo $palabraDisponible . " Ups, esta palabra ya fue utilizada! \n";
-        }
+        
         $count++;
     } while ($palabraDisponible && $count < count($palabras));
-
     if($count == count($palabras)){
         echo "FELICIDADES. Usted ha adivinado todas las letras del Wordix! Gracias por jugar.\n";
     }
     $partida = jugarWordix($numeroAlt, $jugador);
-
     return $partida;
 }
 
@@ -440,7 +436,6 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
     $palabraAJugar = false;
     $j = 0; 
     $cantidadPartidas = count($partidas);
-
     while (($j < $cantidadPartidas && !$palabraAJugar)) { 
         if ($jugador == $partidas[$j]["jugador"]) {
             if ($inidice == $partidas[$j]["palabraWordix"]) {
@@ -449,6 +444,8 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
         }
         $j++; // conteo que se incrementa en cada bucle
     }
+
+
     return $palabraAJugar;
 }
 
