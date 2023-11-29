@@ -109,11 +109,12 @@ function numeroDePalabra($array)
  */
 function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
 {
+    $noAdivino = "No adivino la palabra";
     //se obtiene el indice con correlacion al numero que eligio el usuario
     $nuevoNumeroIndice = $numeroIndice - 1;
     //se menciona si el jugador elegido no adivino ninguna palabra 
     if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) {
-        $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] = "No adivino la palabra";
+        $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] = $noAdivino;
     }//AGREGAR COMO VARIABLE EL MENSAJE DE ARRIBA
     //menu de partida
     echo "\n***********************************\n";
@@ -476,54 +477,31 @@ do {
             //Mostrar una partida
         case 3:
             echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
-            $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));
-            /* Esto no va ya que supuestamente de otro modulo
-            while (($numeroDePartida > count($partidasCollection) || $numeroDePartida < 0)) {
-                echo "Numero invalido\n";
-                echo "Ingrese un numero valido: ";
-                $numeroDePartida = trim(fgets(STDIN));
-            }*/
+            $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));           
             mostrarUnaPartida($numeroDePartida, $partidasCollection);
             break;
             //Mostrar la primer partida ganadora
         case 4:
-            echo "Ingrese nombre de jugador: ";
-            $jugadorGanador = trim(fgets(STDIN));
-            $comprobante = esPalabra($jugadorGanador);
-            if(!$comprobante){
-                do{
-                    echo "No se permiten numeros, ingrese un nombre: ";
-                    $jugadorGanador = trim(fgets(STDIN));
-                    $comprobante = esPalabra($jugadorGanador);
-                }while(!$comprobante);
-            }
-            $indice = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($jugadorGanador));
+            $nombre = solicitarJugador();
+            $indice = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($nombre));
             if ($indice > 0) {
                 mostrarUnaPartida($indice, $partidasCollection);
-            } else {
-                echo "\nEl jugador " . $jugadorGanador . " no ganó ninguna partida" . "\n\n";
+            } 
+            else {
+                echo "\nEl jugador " . $nombre . " no ganó ninguna partida" . "\n\n";
             }
             break;
             //Mostrar resumen de Jugador
         case 5:
-            echo "Ingrese jugador: ";
-            $jugadorGanador = trim(fgets(STDIN));
-            $comprobante = esPalabra($jugadorGanador);
-            if(!$comprobante){
-                do{
-                    echo "No se permiten numeros, ingrese un nombre: ";
-                    $jugadorGanador = trim(fgets(STDIN));
-                    $comprobante = esPalabra($jugadorGanador);
-                }while(!$comprobante);
+            $nombre = solicitarJugador(); //Ingresa nombre
+            $jugadorResumen = resumenDelJugador($partidasCollection,  strtoupper($nombre));                    
+            
+            //Imprime resumen del jugador
+            echo "\n***********************************\n";
+            foreach ($jugadorResumen[$i] as $indice => $dato) {
+                echo $indice . ": " . $dato . "\n";
             }
-            $jugadorResumen = resumenDelJugador($partidasCollection, strtoupper($jugadorGanador));
-            for ($i = 0; $i < count($jugadorResumen); $i++) {
-                echo "\n***********************************\n";
-                foreach ($jugadorResumen[$i] as $indice => $dato) {
-                    echo $indice . ": " . $dato . "\n";
-                }
-                echo "***********************************\n\n";
-            }
+            echo "***********************************\n\n";
             break;
             //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6:
