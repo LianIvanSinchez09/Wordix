@@ -453,10 +453,13 @@ do {
         case 1:
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
-            $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
-            $currPosition = count($partidasCollection);
-            $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
-            $currPosition++;
+            $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
+            $comprobante = is_array($partida);
+            if($comprobante){
+                $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
+                $currPosition++;
+                // echo $currPosition;
+            }                   
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
@@ -467,6 +470,7 @@ do {
             if($comprobante){
                 $partidasCollection[$currPosition] = $partidaAleatoria;
                 $currPosition++;
+                // echo $currPosition;
             }
             break;
             //Mostrar una partida
