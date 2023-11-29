@@ -42,8 +42,8 @@ function cargarPartidas()
 {
     $partida = [];
     $partida[0] = ["palabraWordix" => "QUESO", "jugador" =>  "LIAN", "intentos" => 2, "puntaje" =>  21];
-    $partida[1] = ["palabraWordix" => "MUJER", "jugador" =>  "LIAN", "intentos" => 1, "puntaje" =>  16];
-    $partida[2] = ["palabraWordix" => "GOTAS", "jugador" =>  "LIAN", "intentos" => 3, "puntaje" =>  23];
+    $partida[1] = ["palabraWordix" => "MUJER", "jugador" =>  "MARTIN", "intentos" => 1, "puntaje" =>  16];
+    $partida[2] = ["palabraWordix" => "GOTAS", "jugador" =>  "FRAN", "intentos" => 3, "puntaje" =>  23];
     $partida[3] = ["palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  22];
     $partida[4] = ["palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  21];
     $partida[5] = ["palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 0, "puntaje" =>  0];
@@ -383,8 +383,8 @@ function palabraAleatoria($palabras, $partidas, $jugador){
             
         $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
         $count++;
-    } while ($palabraDisponible && $count < count($palabras));
-    if($count == count($palabras)){
+    } while ($palabraDisponible && $count < count($palabras) + 1);
+    if($count == count($palabras)+1){
         $partida = "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
         echo $partida;
     }
