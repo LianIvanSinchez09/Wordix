@@ -103,11 +103,9 @@ function numeroDePalabra($array)
 
 /**
  * 6)
- * Funcion que tiene un parametro. 
- * Le solicita al usuario un número de partida 
- * y se muestra en pantalla
- * @param INT $numeroIndice
- * @param ARRAY $arraycargarpartidas
+ * Funcion mostrarUnaPartida recibe un numero entero y un array de partidas. Se usa el numero entero como indice en el array de partidas para buscar X elemento.
+ * @param INT $numeroIndice **NUMERO PUESTO POR EL USUARIO**
+ * @param ARRAY $arraycargarpartidas **COLECCION DE PARTIDAS**
  */
 function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
 {
@@ -163,7 +161,7 @@ function solicitarJugador()
     return $aMinuscula;
 }
 
-/**Funcion compararPorNombre compara con cmp 2 elementos de un array (de partidas en este caso) y devuelve -1 si $colUno < $colDos, 0 si $colUno === $colDos y 1 si $colUno > $colDos
+/** Funcion compararPorNombre compara con cmp 2 elementos de un array (de partidas en este caso) y devuelve -1 si $colUno < $colDos, 0 si $colUno === $colDos y 1 si $colUno > $colDos
  * @param ARRAY $colUno
  * @param ARRAY $colDos
  * @return INT
@@ -304,8 +302,8 @@ function resumenDelJugador($array, $persona)
  * antes por el jugador y si fue utilizada antes retorna true
  * @param STRING $jugador
  * @param ARRAY $partidas
- * @param ARRAY $inidice
  * @param ARRAY $palabras
+ * @param ARRAY $inidice
  * @return bool
  */
 function verificarPalabra($jugador, $partidas, $palabras, $inidice){
@@ -414,20 +412,10 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 /**************************************/
 
 /**Declaración de variables:
-* ARRAY $palabraCollection
-* ARRAY $partidasCollection
-* INT $opcion
-* INT $nuevaPos 
-* INT $numeroDePartida
-* STRING $jugadorGanador
-* INT $indice
-* ARRAY $jugadorResumen
-* ARRAY $listado
-* ARRAY $collectionMod
-* BOOLEAN $encontrado
-* BOOLEAN $comprobante
-* ARRAY $partidaAleatoria
-* INT $currPosition
+* INT $numeroDePartida, $indice, $nuevaPos, $opcion, $currPosition 
+* STRING $jugadorGanador, $nombre, $nombreMayuscula
+* ARRAY $jugadorResumen, $listado, $collectionMod, $partidasCollection, $palabraCollection
+* BOOLEAN $encontrado, $comprobante, $partidaAleatoria
 */
 
 //Inicialización de variables:
@@ -449,9 +437,9 @@ do {
         case 1:
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
-            $encontrado = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
+            $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);                   
             $currPosition = count($partidasCollection);
-            $partidasCollection[$currPosition] = $encontrado;  //almacena todos datos de la partida
+            $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
             $currPosition++;
             break;
             //Jugar al wordix con una palabra aleatoria
@@ -519,7 +507,7 @@ do {
             break;
             //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6:
-            //se arma el array con los nombres y palabras
+            // se arma el array con los nombres y palabras
             for ($i = 0; $i < count($partidasCollection); $i++) {
                 $finalSort[$i] = ['jugador' => $partidasCollection[$i]['jugador'], 'palabraWordix' => $partidasCollection[$i]['palabraWordix']];
             }
