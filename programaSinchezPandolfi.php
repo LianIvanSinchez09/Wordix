@@ -447,6 +447,10 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $currPosition = count($partidasCollection);
+// se arma el array con los nombres y palabras
+for ($i = 0; $i < count($partidasCollection); $i++) {
+        $finalSort[$i] = ['jugador' => $partidasCollection[$i]['jugador'], 'palabraWordix' => $partidasCollection[$i]['palabraWordix']];
+}
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
@@ -505,10 +509,6 @@ do {
             break;
             //Mostrar listado de partidas ordenadas por jugador y por palabra
         case 6:
-            // se arma el array con los nombres y palabras
-            for ($i = 0; $i < count($partidasCollection); $i++) {
-                $finalSort[$i] = ['jugador' => $partidasCollection[$i]['jugador'], 'palabraWordix' => $partidasCollection[$i]['palabraWordix']];
-            }
             //se ordena la lista
             uasort($finalSort, "compararPorNombre");
             print_r($finalSort);
@@ -518,6 +518,7 @@ do {
             $palabra = leerPalabra5Letras();
             $collectionMod = agregarPalabra($palabraCollection, $palabra);
             $palabraCollection = $collectionMod;
+            echo "Palabra " . "'" . $palabraCollection[count($palabraCollection)-1] . "'" . " agregada exitosamente.\n";
             break;
         default;
             break;
