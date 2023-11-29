@@ -215,87 +215,103 @@ function resumenDelJugador($array, $persona)
 {
     // ARRAY $nuevaMatriz 
     // INT $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
-    // BOOLEAN $found     
+    //BOOLEAN $found
+    
     $nroPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
+    $found = false;
     $int1 = 0;
     $int2 = 0;
     $int3 = 0;
     $int4 = 0;
     $int5 = 0;
-    $int6 = 0;
-    $found = false;
+    $int6 = 0; 
     $k = 0;
+    $l = 0;
 
-    while ($k < count($array) && !$found) {
-        if ($array[$k]["jugador"] == $persona) {
+    //Verifica si el nombre del jugador ingresado jugo una partida
+    while ($l < count($array) && !$found) {
+        if ($array[$l]["jugador"] == $persona) {
             $found = true;
         }
-        $k++;
+        $l++;
     }
+    // Si es verdadero muestra el resumen total del jugador
     if ($found) {
-        for ($i = 0; $i < count($array); $i++) {
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] > 0) {
-                $victorias = $victorias + 1;
-                $nroPartidas = $nroPartidas + 1;
-                $puntajeTotal = $puntajeTotal + $array[$i]["puntaje"];
-            }
+        while ($k < count($array)) {
 
-            if ($array[$i]["jugador"] === $persona && $array[$i]["intentos"] < 1) {
-                $nroPartidas = $nroPartidas + 1;
+            if ($array[$k]["jugador"] == $persona) {
+                $intentos = $array[$k]["intentos"];
+
+                if ($intentos > 0) {
+                    $victorias++;
+                    $nroPartidas++;
+                    $puntajeTotal += $array[$k]["puntaje"];
+                } 
+                else {
+                    $nroPartidas++;
+                }
+
+                switch ($intentos) {
+                    case 1:
+                        $int1++;
+                        break;
+                    case 2:
+                        $int2++;
+                        break;
+                    case 3:
+                        $int3++;
+                        break;
+                    case 4:
+                        $int4++;
+                        break;
+                    case 5:
+                        $int5++;
+                        break;
+                    case 6:
+                        $int6++;
+                        break;
+                    default:
+                    break;
+                }            
             }
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 1) {
-                $int1 = $int1 + 1;
-            }
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 2) {
-                $int2 = $int2 + 1;
-            }
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 3) {
-                $int3 = $int3 + 1;
-            }
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 4) {
-                $int4 = $int4 + 1;
-            }
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 5) {
-                $int5 = $int5 + 1;
-            }
-            if ($array[$i]["jugador"] == $persona && $array[$i]["intentos"] == 6) {
-                $int6 = $int6 + 1;
-            }
+            $k++;                        
         }
-
+            
         $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
+            
         $resumenMatriz[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => $nroPartidas,
             "Puntaje Total" => $puntajeTotal,
             "Victorias" => $victorias,
             "Porcentaje" => $porcentajeVictoria . "%",
-            "Intento 1" => $int1,
-            "Intento 2" => $int2,
-            "Intento 3" => $int3,
-            "Intento 4" => $int4,
-            "Intento 5" => $int5,
-            "Intento 6" => $int6
+            "Adivinadas" => "",
+            "    Intento 1" => $int1,
+            "    Intento 2" => $int2,
+            "    Intento 3" => $int3,
+            "    Intento 4" => $int4,
+            "    Intento 5" => $int5,
+            "    Intento 6" => $int6
         ];
-    } else {
-        $puntajeTotal = 0;
-        $porcentajeVictoria = 0;
+    }
+    else { //Muestra un resumen de valor 0 de las partidas del jugador no existente
         $resumenMatriz[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => 0,
             "Puntaje Total" => 0,
             "Victorias" => 0,
             "Porcentaje" => 0 . "%",
-            "Intento 1" => 0,
-            "Intento 2" => 0,
-            "Intento 3" => 0,
-            "Intento 4" => 0,
-            "Intento 5" => 0,
-            "Intento 6" => 0
-        ];
-    }
+            "Adivinadas" => "",
+            "    Intento 1" => 0,
+            "    Intento 2" => 0,
+            "    Intento 3" => 0,
+            "    Intento 4" => 0,
+            "    Intento 5" => 0,
+            "    Intento 6" => 0
+            ];
+    }    
     return $resumenMatriz;
 }
 
