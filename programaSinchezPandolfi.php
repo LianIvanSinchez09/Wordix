@@ -95,20 +95,19 @@ function numeroAleatorio($collection)
  */
 function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
 {
-    // Cuando un juagor no logro adivinar la palabra, se asigna esta variable a intentos
-    $noAdivino = "No adivino la palabra";
     //se obtiene el indice con correlacion al numero que eligio el usuario
     $nuevoNumeroIndice = $numeroIndice - 1;
-    //se menciona si el jugador elegido no adivino ninguna palabra 
-    if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) {
-        $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] = $noAdivino;
-    }
+    
     //menu de partida
     echo "\n***********************************\n";
     echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
     echo "Jugador: " . $arraycargarpartidas[$nuevoNumeroIndice]["jugador"] . "\n";
     echo "Puntaje: " . $arraycargarpartidas[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
-    echo "Intentos: " . $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] . "\n";
+    if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) { //se menciona si el jugador elegido no adivino ninguna palabra o si caso contrario
+        echo "Intentos: No adivino la palabra\n";
+    } else{
+        echo "Intentos: Adivino la palabra en " . $arraycargarpartidas[$nuevoNumeroIndice]["intentos"] . " intentos\n";
+    }    
     echo "***********************************\n\n";
 }
 
@@ -218,6 +217,7 @@ function resumenDelJugador($array, $persona)
     // INT $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
     //BOOLEAN $found
     
+    $resumenMatriz = [];
     $nroPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
@@ -239,7 +239,7 @@ function resumenDelJugador($array, $persona)
         $l++;
     }
     // Si es verdadero muestra el resumen total del jugador
-    if ($found) {
+    if ($found == true) {
         while ($k < count($array)) {
 
             if ($array[$k]["jugador"] == $persona) {
@@ -296,8 +296,9 @@ function resumenDelJugador($array, $persona)
             "    Intento 5" => $int5,
             "    Intento 6" => $int6
         ];
-    }
-    else { //Muestra un resumen de valor 0 de las partidas del jugador no existente
+    } 
+    else {
+        //Muestra un resumen de valor 0 de las partidas del jugador no existente
         $resumenMatriz[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => 0,
@@ -312,7 +313,7 @@ function resumenDelJugador($array, $persona)
             "    Intento 5" => 0,
             "    Intento 6" => 0
             ];
-    }    
+    } 
     return $resumenMatriz;
 }
 
@@ -480,7 +481,8 @@ do {
             //Mostrar la primer partida ganadora
         case 4:
             $nombre = solicitarJugador();
-            $indice = MostraPrimerPartidaGanadora($partidasCollection, strtoupper($nombre));
+            $nombreMayuscula = strtoupper($nombre); 
+            $indice = MostraPrimerPartidaGanadora($partidasCollection, $nombreMayuscula);
             if ($indice > 0) {
                 mostrarUnaPartida($indice, $partidasCollection);
             } 
@@ -491,10 +493,11 @@ do {
             //Mostrar resumen de Jugador
         case 5:
             $nombre = solicitarJugador(); //Ingresa nombre
-            $jugadorResumen = resumenDelJugador($partidasCollection,  strtoupper($nombre));                    
-            //Imprime resumen del jugador
+            $nombreMayuscula = strtoupper($nombre);
+            $jugadorResumen = resumenDelJugador($partidasCollection,  $nombreMayuscula);                    
+            //Imprime el resumen del jugador
             echo "\n***********************************\n";
-            foreach ($jugadorResumen[$i] as $indice => $dato) {
+            foreach ($jugadorResumen[0] as $indice => $dato) {
                 echo $indice . ": " . $dato . "\n";
             }
             echo "***********************************\n\n";
