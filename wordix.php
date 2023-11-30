@@ -143,7 +143,7 @@ function escribirMensajeBienvenida($usuario)
 /**
  * Funcion que verifica si la palabra ingresada como parametro
  * es de tipo texto y tambien analiza si cada caracter es alfabetico. 
- * Retorna true si es verdadero o falso caso contrario.
+ * Retorna true si es string o falso caso contrario.
  * @return BOOLEAN
  */
 function esPalabra($cadena)
