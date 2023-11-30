@@ -447,9 +447,6 @@ $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
 $currPosition = count($partidasCollection);
 // se arma el array con los nombres y palabras
-for ($i = 0; $i < count($partidasCollection); $i++) {
-        $finalSort[$i] = ['jugador' => $partidasCollection[$i]['jugador'], 'palabraWordix' => $partidasCollection[$i]['palabraWordix']];
-}
 do {
     $opcion = seleccionarOpcion();
     switch ($opcion) {
@@ -473,28 +470,28 @@ do {
             }
             break;
             //Mostrar una partida
-        case 3:
-            echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
-            $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));           
-            mostrarUnaPartida($numeroDePartida, $partidasCollection);
-            break;
-            //Mostrar la primer partida ganadora
-        case 4:
-            $nombre = solicitarJugador();
-            $nombreMayuscula = strtoupper($nombre); 
-            $indice = MostraPrimerPartidaGanadora($partidasCollection, $nombreMayuscula);
-            if ($indice > 0) {
-                mostrarUnaPartida($indice, $partidasCollection);
-            } 
-            else {
-                echo "\nEl jugador " . $nombre . " no ganó ninguna partida" . "\n\n";
-            }
-            break;
-            //Mostrar resumen de Jugador
-        case 5:
-            $nombre = solicitarJugador(); //Ingresa nombre
-            $nombreMayuscula = strtoupper($nombre);
-            $jugadorResumen = resumenDelJugador($partidasCollection,  $nombreMayuscula);                    
+            case 3:
+                echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
+                $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));           
+                mostrarUnaPartida($numeroDePartida, $partidasCollection);
+                break;
+                //Mostrar la primer partida ganadora
+                case 4:
+                    $nombre = solicitarJugador();
+                    $nombreMayuscula = strtoupper($nombre); 
+                    $indice = MostraPrimerPartidaGanadora($partidasCollection, $nombreMayuscula);
+                    if ($indice > 0) {
+                        mostrarUnaPartida($indice, $partidasCollection);
+                    } 
+                    else {
+                        echo "\nEl jugador " . $nombre . " no ganó ninguna partida" . "\n\n";
+                    }
+                    break;
+                    //Mostrar resumen de Jugador
+                    case 5:
+                        $nombre = solicitarJugador(); //Ingresa nombre
+                        $nombreMayuscula = strtoupper($nombre);
+                        $jugadorResumen = resumenDelJugador($partidasCollection,  $nombreMayuscula);                    
             //Imprime el resumen del jugador
             echo "\n***********************************\n";
             foreach ($jugadorResumen[0] as $indice => $dato) {
@@ -503,12 +500,15 @@ do {
             echo "***********************************\n\n";
             break;
             //Mostrar listado de partidas ordenadas por jugador y por palabra
-        case 6:
-            //se ordena la lista
-            uasort($finalSort, "compararPorNombre");
-            print_r($finalSort);
-            break;
-            //Agregar una palabra de 5 letras a Wordix
+            case 6:
+                for ($i = 0; $i < count($partidasCollection); $i++) {
+                        $finalSort[$i] = ['jugador' => $partidasCollection[$i]['jugador'], 'palabraWordix' => $partidasCollection[$i]['palabraWordix']];
+                }
+                //se ordena la lista
+                uasort($finalSort, "compararPorNombre");
+                print_r($finalSort);
+                break;
+                //Agregar una palabra de 5 letras a Wordix
         case 7:
             $palabra = leerPalabra5Letras();
             $palabraCollection = agregarPalabra($palabraCollection, $palabra);
