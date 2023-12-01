@@ -25,9 +25,9 @@ function cargarColeccionPalabras()
 {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+       /* "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"*/
 
     ];
     return ($coleccionPalabras);
@@ -343,6 +343,7 @@ function elegirPalabra($palabras, $partidas, $jugador)
     do { 
         echo "Ingrese numero entre 1 - $cantPalabras: ";      
         $numero = solicitarNumeroEntre(1, count($palabras));
+        //se obtiene el indice con correlacion al numero que eligio el usuario
         $inidice = $numero - 1;
 
         $palabraAJugar = $palabras[$inidice];          
@@ -351,7 +352,7 @@ function elegirPalabra($palabras, $partidas, $jugador)
             echo $numero . " Ya fue utilizada! \n";
         }
         $count++;
-    } while ($palabraDisponible);
+    } while ($palabraDisponible && $count < count($palabras)+1);
     if($count == count($palabras)+1){
         $partida = "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
         echo $partida;
