@@ -100,7 +100,7 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
     
     //menu de partida
     echo "\n***********************************\n";
-    echo "Partida WORDIX " . $numeroIndice . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
+    echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
     echo "Jugador: " . $arraycargarpartidas[$nuevoNumeroIndice]["jugador"] . "\n";
     echo "Puntaje: " . $arraycargarpartidas[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
     if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) { //se menciona si el jugador elegido no adivino ninguna palabra o si caso contrario
@@ -119,7 +119,6 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
  * @return ARRAY **ARRAY MODIFICADO**
  */
 function agregarPalabra($col, $pal){
-    $k = 0;
     $found = false;
     if(in_array($pal, $col)){
         $found = true;
@@ -215,9 +214,10 @@ function MostraPrimerPartidaGanadora($array, $persona)
 function resumenDelJugador($array, $persona)
 {
     // ARRAY $nuevaMatriz 
+    // STRING $noExiste
     // INT $nroPartidas, $porcentajeVictoria , $puntajeTotal, $victorias, $int1, $int2, $int3, $int4, $int5, $int6, $k
     //BOOLEAN $found
-    
+
     $resumenMatriz = [];
     $nroPartidas = 0;
     $puntajeTotal = 0;
@@ -228,7 +228,7 @@ function resumenDelJugador($array, $persona)
     $int3 = 0;
     $int4 = 0;
     $int5 = 0;
-    $int6 = 0; 
+    $int6 = 0;
     $k = 0;
     $l = 0;
 
@@ -250,8 +250,7 @@ function resumenDelJugador($array, $persona)
                     $victorias++;
                     $nroPartidas++;
                     $puntajeTotal += $array[$k]["puntaje"];
-                } 
-                else {
+                } else {
                     $nroPartidas++;
                 }
 
@@ -275,14 +274,14 @@ function resumenDelJugador($array, $persona)
                         $int6++;
                         break;
                     default:
-                    break;
-                }            
+                        break;
+                }
             }
-            $k++;                        
+            $k++;
         }
-            
+
         $porcentajeVictoria = (($victorias / $nroPartidas) * 100);
-            
+
         $resumenMatriz[0] = [
             "Jugador" => strtolower($persona),
             "Partidas" => $nroPartidas,
@@ -297,24 +296,10 @@ function resumenDelJugador($array, $persona)
             "    Intento 5" => $int5,
             "    Intento 6" => $int6
         ];
-    } 
-    else {
-        //Muestra un resumen de valor 0 de las partidas del jugador no existente
-        $resumenMatriz[0] = [
-            "Jugador" => strtolower($persona),
-            "Partidas" => 0,
-            "Puntaje Total" => 0,
-            "Victorias" => 0,
-            "Porcentaje" => 0 . "%",
-            "Adivinadas" => "",
-            "    Intento 1" => 0,
-            "    Intento 2" => 0,
-            "    Intento 3" => 0,
-            "    Intento 4" => 0,
-            "    Intento 5" => 0,
-            "    Intento 6" => 0
-            ];
-    } 
+    } else {
+        $noExiste = $persona . " no existe";
+        $resumenMatriz[0] = ["jugador" => $noExiste];
+    }
     return $resumenMatriz;
 }
 
@@ -446,6 +431,7 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
+$currPosition = count($partidasCollection);
 // se arma el array con los nombres y palabras
 do {
     $opcion = seleccionarOpcion();
@@ -455,20 +441,18 @@ do {
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
-            $currPosition = count($partidasCollection);
             $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
             $currPosition++;                 
             break;
             //Jugar al wordix con una palabra aleatoria
-            case 2:
-                $nombre = solicitarJugador();  
-                $nombreMayuscula = strtoupper($nombre);                               
-                $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
-                $comprobante = is_array($partidaAleatoria);
-                if($comprobante){
-                    $currPosition = count($partidasCollection);
-                    $partidasCollection[$currPosition] = $partidaAleatoria;
-                    $currPosition++;
+        case 2:
+            $nombre = solicitarJugador();  
+            $nombreMayuscula = strtoupper($nombre);                               
+            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
+            $comprobante = is_array($partidaAleatoria);
+            if($comprobante){
+                $partidasCollection[$currPosition] = $partidaAleatoria;
+                $currPosition++;
             }
             break;
             //Mostrar una partida
