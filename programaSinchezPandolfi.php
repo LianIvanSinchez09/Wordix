@@ -100,7 +100,7 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
     
     //menu de partida
     echo "\n***********************************\n";
-    echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
+    echo "Partida WORDIX " . $numeroIndice . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
     echo "Jugador: " . $arraycargarpartidas[$nuevoNumeroIndice]["jugador"] . "\n";
     echo "Puntaje: " . $arraycargarpartidas[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
     if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) { //se menciona si el jugador elegido no adivino ninguna palabra o si caso contrario
@@ -445,7 +445,6 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
-$currPosition = count($partidasCollection);
 // se arma el array con los nombres y palabras
 do {
     $opcion = seleccionarOpcion();
@@ -455,18 +454,20 @@ do {
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
+            $currPosition = count($partidasCollection);
             $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
             $currPosition++;                 
             break;
             //Jugar al wordix con una palabra aleatoria
-        case 2:
-            $nombre = solicitarJugador();  
-            $nombreMayuscula = strtoupper($nombre);                               
-            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
-            $comprobante = is_array($partidaAleatoria);
-            if($comprobante){
-                $partidasCollection[$currPosition] = $partidaAleatoria;
-                $currPosition++;
+            case 2:
+                $nombre = solicitarJugador();  
+                $nombreMayuscula = strtoupper($nombre);                               
+                $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
+                $comprobante = is_array($partidaAleatoria);
+                if($comprobante){
+                    $currPosition = count($partidasCollection);
+                    $partidasCollection[$currPosition] = $partidaAleatoria;
+                    $currPosition++;
             }
             break;
             //Mostrar una partida
