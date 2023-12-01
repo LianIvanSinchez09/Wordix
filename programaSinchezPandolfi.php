@@ -28,7 +28,6 @@ function cargarColeccionPalabras()
         "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
         "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
-
     ];
     return ($coleccionPalabras);
 }
@@ -350,11 +349,12 @@ function elegirPalabra($palabras, $partidas, $jugador)
         if ($palabraDisponible) {
             echo $numero . " Ya fue utilizada! \n";
         }
-        $count++;
+        else{
+            $count++;
+        }
     } while ($palabraDisponible);
-    if($count == count($palabras)+1){
+    if($count == $cantPalabras){
         $partida = "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
-        echo $partida;
     }
     else{
         $partida = jugarWordix($palabraAJugar, $jugador);
@@ -453,6 +453,9 @@ do {
                 $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
                 $currPosition++;
             }                 
+            else{
+                echo $partida;
+            }
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
