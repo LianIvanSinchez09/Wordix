@@ -336,6 +336,7 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
  */
 function elegirPalabra($palabras, $partidas, $jugador)
 {
+    $count = 0;
     $cantPalabras = count($palabras);
     $palabraDisponible = false;
 
@@ -349,9 +350,15 @@ function elegirPalabra($palabras, $partidas, $jugador)
         if ($palabraDisponible) {
             echo $numero . " Ya fue utilizada! \n";
         }
+        $count++;
     } while ($palabraDisponible);
-
-    $partida = jugarWordix($palabraAJugar, $jugador);
+    if($count == count($palabras)+1){
+        $partida = "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
+        echo $partida;
+    }
+    else{
+        $partida = jugarWordix($palabraAJugar, $jugador);
+    }
 
     return $partida;
 }
@@ -440,9 +447,12 @@ do {
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
-            $currPosition = count($partidasCollection);
-            $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
-            $currPosition++;                 
+            $comprobante = is_array($partida);            
+            if($comprobante){
+                $currPosition = count($partidasCollection);
+                $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
+                $currPosition++;
+            }                 
             break;
             //Jugar al wordix con una palabra aleatoria
         case 2:
