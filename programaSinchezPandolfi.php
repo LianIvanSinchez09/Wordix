@@ -100,7 +100,7 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
     
     //menu de partida
     echo "\n***********************************\n";
-    echo "Partida WORDIX " . ($nuevoNumeroIndice + 1) . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
+    echo "Partida WORDIX " . $numeroIndice . ": palabra " . $arraycargarpartidas[$nuevoNumeroIndice]["palabraWordix"] . "\n";
     echo "Jugador: " . $arraycargarpartidas[$nuevoNumeroIndice]["jugador"] . "\n";
     echo "Puntaje: " . $arraycargarpartidas[$nuevoNumeroIndice]["puntaje"] . " puntos\n";
     if ($arraycargarpartidas[$nuevoNumeroIndice]["intentos"] < 1) { //se menciona si el jugador elegido no adivino ninguna palabra o si caso contrario
@@ -431,7 +431,6 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
-$currPosition = count($partidasCollection);
 // se arma el array con los nombres y palabras
 do {
     $opcion = seleccionarOpcion();
@@ -441,6 +440,7 @@ do {
             $nombre = solicitarJugador();
             $nombreMayuscula = strtoupper($nombre);
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
+            $currPosition = count($partidasCollection);
             $partidasCollection[$currPosition] = $partida;  //almacena todos datos de la partida
             $currPosition++;                 
             break;
@@ -451,33 +451,34 @@ do {
             $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
             $comprobante = is_array($partidaAleatoria);
             if($comprobante){
+                $currPosition = count($partidasCollection);
                 $partidasCollection[$currPosition] = $partidaAleatoria;
                 $currPosition++;
             }
-            break;
+        break;
             //Mostrar una partida
-            case 3:
-                echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
-                $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));           
-                mostrarUnaPartida($numeroDePartida, $partidasCollection);
-                break;
-                //Mostrar la primer partida ganadora
-            case 4:
-                $nombre = solicitarJugador();
-                $nombreMayuscula = strtoupper($nombre); 
-                $indice = MostraPrimerPartidaGanadora($partidasCollection, $nombreMayuscula);
-                if ($indice > 0) {
-                    mostrarUnaPartida($indice, $partidasCollection);
-                } 
-                else {
-                    echo "El jugador " . $nombreMayuscula . " no ha jugado una partida.\n";
-                }
-                break;
-                //Mostrar resumen de Jugador
-            case 5:
-                $nombre = solicitarJugador(); //Ingresa nombre
-                $nombreMayuscula = strtoupper($nombre);
-                $jugadorResumen = resumenDelJugador($partidasCollection,  $nombreMayuscula);                    
+        case 3:
+            echo "Ingrese un numero de partida entre 1 y " .  count($partidasCollection) . ": ";
+            $numeroDePartida = solicitarNumeroEntre(1, count($partidasCollection));           
+            mostrarUnaPartida($numeroDePartida, $partidasCollection);
+            break;
+            //Mostrar la primer partida ganadora
+        case 4:
+            $nombre = solicitarJugador();
+            $nombreMayuscula = strtoupper($nombre); 
+            $indice = MostraPrimerPartidaGanadora($partidasCollection, $nombreMayuscula);
+            if ($indice > 0) {
+                mostrarUnaPartida($indice, $partidasCollection);
+            } 
+            else {
+                echo "El jugador " . $nombreMayuscula . " no ha jugado una partida.\n";
+            }
+            break;
+            //Mostrar resumen de Jugador
+        case 5:
+            $nombre = solicitarJugador(); //Ingresa nombre
+            $nombreMayuscula = strtoupper($nombre);
+            $jugadorResumen = resumenDelJugador($partidasCollection,  $nombreMayuscula);                    
             //Imprime el resumen del jugador
             echo "\n***********************************\n";
             foreach ($jugadorResumen[0] as $indice => $dato) {
