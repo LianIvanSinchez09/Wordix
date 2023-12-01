@@ -25,9 +25,10 @@ function cargarColeccionPalabras()
 {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-        "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+       /* "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
         "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"*/
+
     ];
     return ($coleccionPalabras);
 }
@@ -41,9 +42,9 @@ function cargarPartidas()
 {
     $partida = [];
     $partida[0] = ["palabraWordix" => "QUESO", "jugador" =>  "LIAN", "intentos" => 2, "puntaje" =>  14];
-    $partida[1] = ["palabraWordix" => "MUJER", "jugador" =>  "MARTIN", "intentos" => 1, "puntaje" =>  15];
+    $partida[1] = ["palabraWordix" => "MUJER", "jugador" =>  "LIAN", "intentos" => 1, "puntaje" =>  15];
     $partida[2] = ["palabraWordix" => "GOTAS", "jugador" =>  "FRAN", "intentos" => 3, "puntaje" =>  14];
-    $partida[3] = ["palabraWordix" => "YUYOS", "jugador" =>  "BEJAMIN", "intentos" => 4, "puntaje" =>  14];
+    $partida[3] = ["palabraWordix" => "YUYOS", "jugador" =>  "LIAN", "intentos" => 4, "puntaje" =>  14];
     $partida[4] = ["palabraWordix" => "TINTO", "jugador" =>  "MELINA", "intentos" => 5, "puntaje" =>  13];
     $partida[5] = ["palabraWordix" => "NAVES", "jugador" =>  "CELESTE", "intentos" => 0, "puntaje" =>  0];
     $partida[6] = ["palabraWordix" => "PISOS", "jugador" =>  "FABIO", "intentos" => 1, "puntaje" =>  17];
@@ -69,9 +70,9 @@ function seleccionarOpcion()
     echo "5: Mostrar resumen de Jugador\n";
     echo "6: Mostrar listado de partidas ordenadas por jugador y por palabra\n";
     echo "7: Agregar una palabra de 5 letras a Wordix\n";
-    echo "8: Salir\n";
+    echo "8: Cuantas partidas\n";
     echo "Ingrese una opcion:\n";
-    $opcionMenu = solicitarNumeroEntre(1, 8);
+    $opcionMenu = solicitarNumeroEntre(1, 9);
     return $opcionMenu;
 }
 
@@ -85,6 +86,20 @@ function numeroAleatorio($collection)
     $numeroAlt = (count($collection)-1);
     return $collection[random_int(0, $numeroAlt)];
 }
+
+function cuantasPartidas($col, $persona){
+    $c = 0;
+    $partidasJugadas = 0;
+    while($c < count($col)){
+        if($col[$c]["jugador"] == $persona){
+            $partidasJugadas++;
+        }
+        $c++;
+    }
+    return $partidasJugadas;
+}
+
+
 
 /**
  * 6)
@@ -342,6 +357,7 @@ function elegirPalabra($palabras, $partidas, $jugador)
     do { 
         echo "Ingrese numero entre 1 - $cantPalabras: ";      
         $numero = solicitarNumeroEntre(1, count($palabras));
+        //se obtiene el indice con correlacion al numero que eligio el usuario
         $inidice = $numero - 1;
 
         $palabraAJugar = $palabras[$inidice];          
@@ -513,8 +529,13 @@ do {
             $palabra = leerPalabra5Letras();
             $palabraCollection = agregarPalabra($palabraCollection, $palabra);
             break;
+        case 8:
+            $nombre = solicitarJugador();
+            $partidas = cuantasPartidas($partidasCollection, strtoupper($nombre));
+            echo strtoupper($nombre) . " tiene una cantidad de " . $partidas . " partidas jugadas \n";
+            break;
         default;
             break;
     }
-} while ($opcion != 8);
+} while ($opcion != 9);
 ?>
