@@ -343,34 +343,36 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
 /**
  * Permite al usuario dejar jugar al Wordix con la palabra elegida y almacena la partida
  * @param ARRAY $palabras, 
- * @param ARRAY $partidas, 
- * @param STRING $jugador
+ * @param ARRAY $partidas
  * @return ARRAY
  */
-function elegirPalabra($palabras, $partidas, $jugador){
-    $c = 0;
+function elegirPalabra($partidas, $palabras){
+    $nombre = solicitarJugador();
+    $nombreMayuscula = strtoupper($nombre);
     $cantPalabras = count($palabras);
-    $cantPartidas = cuantasPartidas($partidas, strtoupper($jugador));
-
+    $cantPartidas = cuantasPartidas($partidas, $nombreMayuscula);
+    
+    //si el jugador ya llego a la limite max de palabras ya no podra jugar
     if($cantPartidas != $cantPalabras){
         do { 
             echo "Ingrese numero entre 1 - $cantPalabras: ";      
-            $numero = solicitarNumeroEntre(1, count($palabras));
+            $numero = solicitarNumeroEntre(1, $cantPalabras);
             //se obtiene el indice con correlacion al numero que eligio el usuario
             $inidice = $numero - 1;
             
             $palabraAJugar = $palabras[$inidice];          
-            $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $inidice);
+            $palabraDisponible = verificarPalabra($nombreMayuscula, $partidas, $palabras, $inidice);
             if ($palabraDisponible) {
                 // $partida = cuantasPartidas();
                 echo $numero . " Ya fue utilizada! \n";
             }
         } while ($palabraDisponible);
 
-        $partida = jugarWordix($palabraAJugar, $jugador);
+        $partida = jugarWordix($palabraAJugar, $nombreMayuscula);
+    //si ya adivino todo, la partida se reemplaza por este mensaje en pantalla
     } 
     else{
-        $partida = $jugador . " ya ha adivinado todas las palabras\n";
+        $partida = $nombreMayuscula . " ya ha adivinado todas las palabras\n";
     }
 
     return $partida;
@@ -387,23 +389,29 @@ function elegirPalabra($palabras, $partidas, $jugador){
  * @return ARRAY
  */
 function palabraAleatoria($palabras, $partidas, $jugador){
+    $cuantasPartidas = cuantasPartidas($partidas, $jugador);
+    $cuantasPalabras = count($palabras);
+    
     $count = 0;
-    do {    
-        $numeroAlt = numeroAleatorio($palabras);       
-        echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
-            
-        $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
-        $count++;
-    } while ($palabraDisponible && $count < count($palabras) + 1);
-    if($count == count($palabras)+1){
-        $partida = "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
-        echo $partida;
+    if($cuantasPartidas != $cuantasPalabras || $cuantasPalabras != $count){
+        do {    
+            $numeroAlt = numeroAleatorio($palabras);       
+            echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
+                
+            $count++;
+            $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
+            echo $count;
+        } while ($palabraDisponible && $count < count($palabras));
+        
+        $partida = jugarWordix($numeroAlt, $jugador);
     }
     else{
-        $partida = jugarWordix($numeroAlt, $jugador);
+        $partida = $jugador . " ya ha adivinado todas las palabras.\n";
+        echo $partida;
     }
     return $partida;
 }
+
 
 /**
  * Funcion verificarPalabraAleatoria verifica si la palabra elegida 
@@ -462,19 +470,7 @@ do {
     switch ($opcion) {
         //Jugar al wordix con una palabra elegida
         case 1:
-            $nombre = solicitarJugador();
-            $nombreMayuscula = strtoupper($nombre);
-            while($c < count($partidasCollection)){
-                if($partidasCollection[$c]["jugador"]  == $nombreMayuscula){
-                    $conf = true;
-                }
-                $c++;
-            }
-            if($conf && !$partidaActual){
-                $obtenerPartidas = cuantasPartidas($partidasCollection, $nombreMayuscula);
-                $count = $obtenerPartidas;
-            }
-            $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
+            $partida = elegirPalabra($partidasCollection, $palabraCollection);
             if(is_array($partida)){
                 $partidaActual = $partida;
                 $partidasCollection[] = $partida;  //almacena todos datos de la partida
@@ -482,24 +478,16 @@ do {
             else{
                 echo $partida;
             }
-            // $count++;
-            // echo $count;            
-            // if($count == count($palabraCollection)){
-            //     echo "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
-            //     $partidaActual = [];
-            // }
-            break;            //Jugar al wordix con una palabra aleatoria
-        case 2:
-            $count = 0;
-            $nombre = solicitarJugador();  
-            $nombreMayuscula = strtoupper($nombre);                               
-            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
-            $comprobante = is_array($partidaAleatoria);
-            if($comprobante){
-                $currPosition = count($partidasCollection);
-                $partidasCollection[$currPosition] = $partidaAleatoria;
-                $currPosition++;
-            }
+            break;            
+            //Jugar al wordix con una palabra aleatoria
+        case 2: 
+        $nombre = solicitarJugador();  
+        $nombreMayuscula = strtoupper($nombre);                               
+        $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
+        $comprobante = is_array($partidaAleatoria);
+        if($comprobante){
+            $partidasCollection[] = $partidaAleatoria;
+        }
         break;
             //Mostrar una partida
         case 3:
