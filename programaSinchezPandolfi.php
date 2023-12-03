@@ -25,9 +25,9 @@ function cargarColeccionPalabras()
 {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-    //    "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
-    //     "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-    //     "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
+       "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
 
     ];
     return ($coleccionPalabras);
@@ -388,26 +388,38 @@ function elegirPalabra($partidas, $palabras){
  * @param STRING $jugador
  * @return ARRAY
  */
-function palabraAleatoria($palabras, $partidas, $jugador){
-    $cuantasPartidas = cuantasPartidas($partidas, $jugador);
-    $cuantasPalabras = count($palabras);
-    
-    $count = 0;
-    if($cuantasPartidas != $cuantasPalabras && $cuantasPalabras != $count){
-        do {    
-            $numeroAlt = numeroAleatorio($palabras);       
-            echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
-                
-            $count++;
-            $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
-            echo $count;
-        } while ($palabraDisponible && $count < 10);
+function palabraAleatoria($palabras, $partidas){
+    $nombre = solicitarJugador();  
+    $comprobante = esPalabra($nombre);
+    if($comprobante){
+        $nombreMayuscula = strtoupper($nombre); 
+        $cuantasPartidas = cuantasPartidas($partidas, $nombreMayuscula);
+        $cuantasPalabras = count($palabras);
         
-        $partida = jugarWordix($numeroAlt, $jugador);
+        $count = 0;
+        if($cuantasPartidas != $cuantasPalabras && $cuantasPalabras != $count){
+            do {    
+                $numeroAlt = numeroAleatorio($palabras);       
+                echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
+                    
+                $count++;
+                $palabraDisponible = verificarPalabraAleatoria($nombreMayuscula, $partidas, $numeroAlt);
+                echo $count;
+            } while ($palabraDisponible && $count < 10);
+            
+            $partida = jugarWordix($numeroAlt, $nombreMayuscula);
+        }
+        else{
+            $partida = $nombreMayuscula . " ya ha adivinado todas las palabras.\n";
+            echo $partida;
+        }
     }
     else{
-        $partida = $jugador . " ya ha adivinado todas las palabras.\n";
-        echo $partida;
+        do{
+            echo "Ingrese un nombre valido: ";
+            $nombre = solicitarJugador(); 
+            $comprobante = esPalabra($nombre); 
+        }while($comprobante);
     }
     return $partida;
 }
@@ -480,10 +492,8 @@ do {
             }
             break;            
             //Jugar al wordix con una palabra aleatoria
-        case 2: 
-        $nombre = solicitarJugador();  
-        $nombreMayuscula = strtoupper($nombre);                               
-        $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection, $nombreMayuscula);
+        case 2:                               
+        $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
         $comprobante = is_array($partidaAleatoria);
         if($comprobante){
             $partidasCollection[] = $partidaAleatoria;
