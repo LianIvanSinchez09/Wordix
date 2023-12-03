@@ -70,9 +70,9 @@ function seleccionarOpcion()
     echo "5: Mostrar resumen de Jugador\n";
     echo "6: Mostrar listado de partidas ordenadas por jugador y por palabra\n";
     echo "7: Agregar una palabra de 5 letras a Wordix\n";
-    echo "8: Cuantas partidas\n";
+    echo "8: Salir\n";
     echo "Ingrese una opcion:\n";
-    $opcionMenu = solicitarNumeroEntre(1, 9);
+    $opcionMenu = solicitarNumeroEntre(1, 8);
     return $opcionMenu;
 }
 
@@ -547,13 +547,8 @@ do {
             $palabra = leerPalabra5Letras();
             $palabraCollection = agregarPalabra($palabraCollection, $palabra);
         break;
-        case 8:
-            $nombre = solicitarJugador();
-            // $partidas = cuantasPartidas($partidasCollection, strtoupper($nombre));
-            echo strtoupper($nombre) . " tiene una cantidad de " . $partidas . " partidas jugadas \n";
-        break;
         default;
         break;
     }
-} while ($opcion != 9);
+} while ($opcion != 8);
 ?>
