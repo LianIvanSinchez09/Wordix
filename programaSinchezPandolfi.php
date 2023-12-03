@@ -25,9 +25,9 @@ function cargarColeccionPalabras()
 {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-       "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
-        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
+    //    "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+    //     "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
+    //     "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
 
     ];
     return ($coleccionPalabras);
@@ -348,23 +348,30 @@ function verificarPalabra($jugador, $partidas, $palabras, $inidice){
  * @return ARRAY
  */
 function elegirPalabra($palabras, $partidas, $jugador){
+    $c = 0;
     $cantPalabras = count($palabras);
-    do { 
-        echo "Ingrese numero entre 1 - $cantPalabras: ";      
-        $numero = solicitarNumeroEntre(1, count($palabras));
-        //se obtiene el indice con correlacion al numero que eligio el usuario
-        $inidice = $numero - 1;
-        
-        $palabraAJugar = $palabras[$inidice];          
-        $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $inidice);
-        if ($palabraDisponible) {
-            // $partida = cuantasPartidas();
-            echo $numero . " Ya fue utilizada! \n";
-        }
-    } while ($palabraDisponible);
+    $cantPartidas = cuantasPartidas($partidas, strtoupper($jugador));
 
-    $partida = jugarWordix($palabraAJugar, $jugador);
-    
+    if($cantPartidas != $cantPalabras){
+        do { 
+            echo "Ingrese numero entre 1 - $cantPalabras: ";      
+            $numero = solicitarNumeroEntre(1, count($palabras));
+            //se obtiene el indice con correlacion al numero que eligio el usuario
+            $inidice = $numero - 1;
+            
+            $palabraAJugar = $palabras[$inidice];          
+            $palabraDisponible = verificarPalabra($jugador, $partidas, $palabras, $inidice);
+            if ($palabraDisponible) {
+                // $partida = cuantasPartidas();
+                echo $numero . " Ya fue utilizada! \n";
+            }
+        } while ($palabraDisponible);
+
+        $partida = jugarWordix($palabraAJugar, $jugador);
+    } 
+    else{
+        $partida = $jugador . " ya ha adivinado todas las palabras\n";
+    }
 
     return $partida;
 }
@@ -468,14 +475,19 @@ do {
                 $count = $obtenerPartidas;
             }
             $partida = elegirPalabra($palabraCollection, $partidasCollection, $nombreMayuscula);
-            $partidaActual = $partida;
-            $partidasCollection[] = $partida;  //almacena todos datos de la partida
-            $count++;
-            echo $count;            
-            if($count == count($palabraCollection)){
-                echo "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
-                $partidaActual = [];
+            if(is_array($partida)){
+                $partidaActual = $partida;
+                $partidasCollection[] = $partida;  //almacena todos datos de la partida
             }
+            else{
+                echo $partida;
+            }
+            // $count++;
+            // echo $count;            
+            // if($count == count($palabraCollection)){
+            //     echo "FELICIDADES. Usted ha adivinado todas las palabras del Wordix! Gracias por jugar.\n";
+            //     $partidaActual = [];
+            // }
             break;            //Jugar al wordix con una palabra aleatoria
         case 2:
             $count = 0;
