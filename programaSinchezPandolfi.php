@@ -393,7 +393,7 @@ function palabraAleatoria($palabras, $partidas, $jugador){
     $cuantasPalabras = count($palabras);
     
     $count = 0;
-    if($cuantasPartidas != $cuantasPalabras || $cuantasPalabras != $count){
+    if($cuantasPartidas != $cuantasPalabras && $cuantasPalabras != $count){
         do {    
             $numeroAlt = numeroAleatorio($palabras);       
             echo "\n\n" . $numeroAlt . "\n\n"; //PERMITE VER LA PALABRA ALEATORIA, DESHABILITAR PARA JUGAR WORDIX NORMALMENTE
@@ -401,7 +401,7 @@ function palabraAleatoria($palabras, $partidas, $jugador){
             $count++;
             $palabraDisponible = verificarPalabraAleatoria($jugador, $partidas, $numeroAlt);
             echo $count;
-        } while ($palabraDisponible && $count < count($palabras));
+        } while ($palabraDisponible && $count < 10);
         
         $partida = jugarWordix($numeroAlt, $jugador);
     }
