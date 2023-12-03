@@ -480,9 +480,6 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
-$count = 0;
-$conf = false;
-$c = 0;
 $partidaActual = [];
 // se arma el array con los nombres y palabras
 do {
@@ -492,14 +489,13 @@ do {
         case 1:
             $partida = elegirPalabra($partidasCollection, $palabraCollection);
             if(is_array($partida)){
-                $partidaActual = $partida;
                 $partidasCollection[] = $partida;  //almacena todos datos de la partida
             }
             else{
                 echo $partida;
             }
-            break;            
-            //Jugar al wordix con una palabra aleatoria
+        break;            
+        //Jugar al wordix con una palabra aleatoria
         case 2:                               
         $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
         $comprobante = is_array($partidaAleatoria);
