@@ -137,10 +137,10 @@ function mostrarUnaPartida($numeroIndice, $arraycargarpartidas)
  */
 function agregarPalabra($col, $pal){
     $found = false;
-    if(in_array($pal, $col)){
+    if(in_array($pal, $col)){ //si se encuentra en la coleccion de palabras $pal..
         $found = true;
     }
-    if($found){
+    if($found){ // se ejecuta el do while
         $foundAux = false;
         do{
             echo $pal . " Ya se encuentra en la coleccion de palabras, ingrese una nueva.\n";
@@ -217,15 +217,14 @@ function MostraPrimerPartidaGanadora($array)
         $i++;
     }
     if(!$encontrado) {
-        $resultado = -1;
+        $resultado = "El jugador " . $nombreMayuscula . " no ha jugado una partida.\n";
     }
     return $resultado;
 }
 
 /**
  * 3.9)
- * funcion que dada la colección de partidas y el 
- * nombre de un jugador, retorne el resumen del jugador
+ * funcion que dada la colección de partidas retorne el resumen del jugador
  * @param ARRAY $array
  * @return ARRAY
  */
@@ -503,11 +502,11 @@ do {
         //Mostrar la primer partida ganadora
         case 4:
             $indice = MostraPrimerPartidaGanadora($partidasCollection);
-            if ($indice > 0) {
+            if ($indice > 0 && is_numeric($indice)) {
                 mostrarUnaPartida($indice, $partidasCollection);
             } 
-            else {
-                echo "El jugador " . $nombreMayuscula . " no ha jugado una partida.\n";
+            else{
+                echo $indice;
             }
         break;
         //Mostrar resumen de Jugador
