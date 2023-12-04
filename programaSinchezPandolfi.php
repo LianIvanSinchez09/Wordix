@@ -198,7 +198,7 @@ function compararPorNombre($colUno, $colDos){
  * funcion que dada una colección de partidas y el nombre de un jugador, 
  * retorna el índice de la primer partida ganada por dicho jugador
  * @param ARRAY $array,
- * @param STRIN $nombre
+ * @param STRING $nombre
  * @return INT
  */
 function MostraPrimerPartidaGanadora($array, $nombre)
@@ -213,7 +213,7 @@ function MostraPrimerPartidaGanadora($array, $nombre)
             $resultado = $i + 1;
         } 
         if ($array[$i]["jugador"] == $nombre && $array[$i]["intentos"] == 0){
-            $encontrado = false;
+            $encontrado = true;
             $resultado = -1;
         }
         $i++;
