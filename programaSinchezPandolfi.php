@@ -200,29 +200,29 @@ function compararPorNombre($colUno, $colDos){
  * @param ARRAY $array
  * @return INT
  */
-function MostraPrimerPartidaGanadora($array)
+function MostraPrimerPartidaGanadora($array, $nombre)
 {
-    $nombre = solicitarJugador();
-    $nombreMayuscula = strtoupper($nombre); 
+    $resultado = 0;
     $noJugo = false;
     $i = 0;
     $encontrado = false;
-    
+
     while ($i < count($array) && !$encontrado) {
-        if ($array[$i]["jugador"] == $nombreMayuscula && $array[$i]["intentos"] == 0) {
-            $noJugo = true;
-        }
-        if ($array[$i]["jugador"] == $nombreMayuscula && $array[$i]["intentos"] > 0) {
+        if ($array[$i]["jugador"] == $nombre && $array[$i]["intentos"] >= 0) {
             $encontrado = true;
             $resultado = $i + 1;
         } 
         $i++;
     }
-    if(!$encontrado) {
-        if ($noJugo) {
-            $resultado = "El jugador " . $nombreMayuscula . " no ganó ninguna partida.\n";
-        }
+    
+    if ( !(in_array($nombre, $array)) ) {
+        $noJugo = true; //previene que cambie el $resultado de 0
+    } 
+
+    if (!$noJugo && !$encontrado) {
+        $resultado = -1;
     }
+    // echo $resultado;
     return $resultado;
 }
 
@@ -492,11 +492,11 @@ do {
         break;            
         //Jugar al wordix con una palabra aleatoria
         case 2:                               
-            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
-            $comprobante = is_array($partidaAleatoria);
-            if($comprobante){
-                $partidasCollection[] = $partidaAleatoria;
-            }
+        $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
+        $comprobante = is_array($partidaAleatoria);
+        if($comprobante){
+            $partidasCollection[] = $partidaAleatoria;
+        }
         break;
         //Mostrar una partida
         case 3:
@@ -506,12 +506,17 @@ do {
             break;
         //Mostrar la primer partida ganadora
         case 4:
-            $indice = MostraPrimerPartidaGanadora($partidasCollection);
-            if ($indice > 0 && is_numeric($indice)) {
+            $nombre = solicitarJugador();
+            $nombreMayuscula = strtoupper($nombre); 
+            $indice = MostraPrimerPartidaGanadora($partidasCollection, $nombreMayuscula);
+            if ($indice > 0) {
                 mostrarUnaPartida($indice, $partidasCollection);
             } 
-            else{
-                echo $indice;
+            if($indice == -1){
+                echo "El jugador " . $nombreMayuscula . " no ha ganado ninguna partida." . "\n";
+            }
+            if($indice == 0){
+                echo "El jugador " . $nombreMayuscula . " no existe." . "\n";
             }
         break;
         //Mostrar resumen de Jugador
