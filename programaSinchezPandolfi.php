@@ -25,9 +25,9 @@ function cargarColeccionPalabras()
 {
     $coleccionPalabras = [
         "MUJER", "QUESO", "FUEGO", "CASAS", "RASGO",
-    //    "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
-    //     "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
-    //     "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
+       "GATOS", "GOTAS", "HUEVO", "TINTO", "NAVES",
+        "VERDE", "MELON", "YUYOS", "PIANO", "PISOS",
+        "LAGOS", "POLLO", "AVION", "SOPLA", "VASOS"
 
     ];
     return ($coleccionPalabras);
@@ -202,25 +202,20 @@ function compararPorNombre($colUno, $colDos){
  */
 function MostraPrimerPartidaGanadora($array, $nombre)
 {
-    $resultado = 0;
-    $noJugo = false;
+    $resultado = 0; // se queda en 0 cuando no encontro ningun resultado
     $i = 0;
     $encontrado = false;
 
     while ($i < count($array) && !$encontrado) {
-        if ($array[$i]["jugador"] == $nombre && $array[$i]["intentos"] >= 0) {
+        if ($array[$i]["jugador"] == $nombre && $array[$i]["intentos"] > 0) {
             $encontrado = true;
             $resultado = $i + 1;
         } 
+        if ($array[$i]["jugador"] == $nombre && $array[$i]["intentos"] == 0){
+            $encontrado = false;
+            $resultado = -1;
+        }
         $i++;
-    }
-    
-    if ( !(in_array($nombre, $array)) ) {
-        $noJugo = true; //previene que cambie el $resultado de 0
-    } 
-
-    if (!$noJugo && !$encontrado) {
-        $resultado = -1;
     }
     // echo $resultado;
     return $resultado;
@@ -492,11 +487,11 @@ do {
         break;            
         //Jugar al wordix con una palabra aleatoria
         case 2:                               
-        $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
-        $comprobante = is_array($partidaAleatoria);
-        if($comprobante){
-            $partidasCollection[] = $partidaAleatoria;
-        }
+            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
+            $comprobante = is_array($partidaAleatoria);
+            if($comprobante){
+                $partidasCollection[] = $partidaAleatoria;
+            }
         break;
         //Mostrar una partida
         case 3:
