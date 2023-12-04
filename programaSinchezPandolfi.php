@@ -197,7 +197,8 @@ function compararPorNombre($colUno, $colDos){
  * 3.8)
  * funcion que dada una colección de partidas y el nombre de un jugador, 
  * retorna el índice de la primer partida ganada por dicho jugador
- * @param ARRAY $array
+ * @param ARRAY $array,
+ * @param STRIN $nombre
  * @return INT
  */
 function MostraPrimerPartidaGanadora($array, $nombre)
