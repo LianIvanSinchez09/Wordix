@@ -202,14 +202,16 @@ function compararPorNombre($colUno, $colDos){
  */
 function MostraPrimerPartidaGanadora($array)
 {
-    //INT $i, $resultado
-    //BOOLEAN $encontrado
     $nombre = solicitarJugador();
     $nombreMayuscula = strtoupper($nombre); 
-
+    $noJugo = false;
     $i = 0;
     $encontrado = false;
-    while ($i < count($array) && $encontrado == false) {
+    
+    while ($i < count($array) && !$encontrado) {
+        if ($array[$i]["jugador"] == $nombreMayuscula && $array[$i]["intentos"] == 0) {
+            $noJugo = true;
+        }
         if ($array[$i]["jugador"] == $nombreMayuscula && $array[$i]["intentos"] > 0) {
             $encontrado = true;
             $resultado = $i + 1;
@@ -217,10 +219,13 @@ function MostraPrimerPartidaGanadora($array)
         $i++;
     }
     if(!$encontrado) {
-        $resultado = "El jugador " . $nombreMayuscula . " no ha jugado una partida.\n";
+        if ($noJugo) {
+            $resultado = "El jugador " . $nombreMayuscula . " no ganó ninguna partida.\n";
+        }
     }
     return $resultado;
 }
+
 
 /**
  * 3.9)
@@ -487,11 +492,11 @@ do {
         break;            
         //Jugar al wordix con una palabra aleatoria
         case 2:                               
-        $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
-        $comprobante = is_array($partidaAleatoria);
-        if($comprobante){
-            $partidasCollection[] = $partidaAleatoria;
-        }
+            $partidaAleatoria = palabraAleatoria($palabraCollection, $partidasCollection);
+            $comprobante = is_array($partidaAleatoria);
+            if($comprobante){
+                $partidasCollection[] = $partidaAleatoria;
+            }
         break;
         //Mostrar una partida
         case 3:
