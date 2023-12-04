@@ -412,7 +412,6 @@ function palabraAleatoria($palabras, $partidas){
                     
                 $count++;
                 $palabraDisponible = verificarPalabraAleatoria($nombreMayuscula, $partidas, $numeroAlt);
-                echo $count;
             } while ($palabraDisponible && $count < 10);
             
             $partida = jugarWordix($numeroAlt, $nombreMayuscula);
@@ -421,13 +420,6 @@ function palabraAleatoria($palabras, $partidas){
             $partida = $nombreMayuscula . " ya ha adivinado todas las palabras.\n";
             echo $partida;
         }
-    }
-    else{
-        do{
-            echo "Ingrese un nombre valido: ";
-            $nombre = solicitarJugador(); 
-            $comprobante = esPalabra($nombre); 
-        }while($comprobante);
     }
     return $partida;
 }
@@ -464,10 +456,10 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 /**************************************/
 
 /**Declaración de variables:
-* INT $numeroDePartida, $indice, $nuevaPos, $opcion, $currPosition 
-* STRING $jugadorGanador, $nombre, $nombreMayuscula
-* ARRAY $jugadorResumen, $listado, $collectionMod, $partidasCollection, $palabraCollection
-* BOOLEAN $encontrado, $comprobante, $partidaAleatoria
+* INT $numeroDePartida, $indice, $opcion
+* STRING $nombreMayuscula
+* ARRAY $partidasCollection, $palabraCollection, $partida, $partidaAleatoria, $jugadorResumen
+* BOOLEAN $comprobante
 */
 
 //Inicialización de variables:
@@ -480,7 +472,6 @@ function verificarPalabraAleatoria($jugador, $partidas, $inidice){
 
 $partidasCollection = cargarPartidas(); //ACA TIENE QUE ESTAR
 $palabraCollection = cargarColeccionPalabras(); //ACA TIENE QUE ESTAR
-$partidaActual = [];
 // se arma el array con los nombres y palabras
 do {
     $opcion = seleccionarOpcion();
